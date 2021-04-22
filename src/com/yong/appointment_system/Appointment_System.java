@@ -6,6 +6,9 @@
 package com.yong.appointment_system;
 
 import com.yong.utility.DBConnection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +26,17 @@ public class Appointment_System extends Application{
      */
     public static void main(String[] args) {
         DBConnection.startConnection();
+          try {
+            String sql = "select * from users";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                System.out.println(rs.getString("User_Name"));
+                
+            }
+        } catch (SQLException ex) {
+            ex.getStackTrace();
+        }
         launch(args);
         DBConnection.closeConnection();
     }
