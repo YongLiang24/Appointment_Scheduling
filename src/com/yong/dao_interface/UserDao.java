@@ -5,7 +5,7 @@
  */
 package com.yong.dao_interface;
 
-import com.yong.model.Users;
+import model.Users;
 import javafx.collections.ObservableList;
 
 /**

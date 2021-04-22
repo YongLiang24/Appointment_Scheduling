@@ -25,7 +25,10 @@ public class Appointment_System extends Application{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         DBConnection.startConnection();
+        
+        /* connect test script
           try {
             String sql = "select * from users";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -36,20 +39,17 @@ public class Appointment_System extends Application{
             }
         } catch (SQLException ex) {
             ex.getStackTrace();
-        }
+        } */
         launch(args);
         DBConnection.closeConnection();
     }
 
     @Override
-    public void start(Stage st) throws Exception {
-        
+    public void start(Stage st) throws Exception { 
         Parent root = FXMLLoader.load(getClass().getResource("/view/IndexFXML.fxml"));
         Scene sce = new Scene(root);
         st.setScene(sce);
         st.setTitle("Main Menu");
-        st.setHeight(600);
-        st.setWidth(900);
         st.show();
     }
     

@@ -6,7 +6,7 @@
 package com.yong.dao_implement;
 
 import com.yong.dao_interface.UserDao;
-import com.yong.model.Users;
+import model.Users;
 import com.yong.utility.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
