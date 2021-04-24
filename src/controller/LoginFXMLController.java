@@ -26,6 +26,8 @@ public class LoginFXMLController implements Initializable {
     private Label UserLocation;
     @FXML
     private TextField userNameTxt;
+    @FXML
+    private TextField passwordTxt;
  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,12 +38,20 @@ public class LoginFXMLController implements Initializable {
         //pass the default location to the Label Userlocation
         UserLocation.setText(userLocation);
         
-       System.out.println(userNameTxt.getText());
+       
     }    
 
     @FXML
     private void exitApp(ActionEvent event) {
         System.exit(0);
+    }
+    
+    @FXML
+    void loginHandler(ActionEvent event) {
+        System.out.println(userNameTxt.getText());
+        System.out.println(passwordTxt.getText());
+        
+
     }
 
    
