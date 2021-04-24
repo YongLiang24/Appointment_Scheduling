@@ -26,7 +26,7 @@ public class Appointment_System extends Application{
      */
     public static void main(String[] args) {
         
-        DBConnection.startConnection();
+       // DBConnection.startConnection();
         
         /* connect test script
           try {
@@ -41,12 +41,12 @@ public class Appointment_System extends Application{
             ex.getStackTrace();
         } */
         launch(args);
-        DBConnection.closeConnection();
+       // DBConnection.closeConnection();
     }
 
     @Override
     public void start(Stage st) throws Exception { 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/IndexFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginFXML.fxml"));
         Scene sce = new Scene(root);
         st.setScene(sce);
         st.setTitle("Main Menu");
