@@ -27,23 +27,23 @@ public class Appointment_System extends Application{
      */
     public static void main(String[] args) {
         
-       // DBConnection.startConnection();
+        DBConnection.startConnection();
         
-        /* connect test script
-          try {
-            String sql = "select * from users";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                System.out.println(rs.getString("User_Name"));
-                
-            }
-        } catch (SQLException ex) {
-            ex.getStackTrace();
-        } */
+        // connect test script
+//        try {
+//            String sql = "select * from users";
+//            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            while(rs.next()){
+//                System.out.println(rs.getString("User_Name"));
+//                
+//            }
+//        } catch (SQLException ex) {
+//            ex.getStackTrace();
+//        } 
         //Locale.setDefault(new Locale("fr"));
         launch(args);
-       // DBConnection.closeConnection();
+       DBConnection.closeConnection();
     }
 
     @Override
