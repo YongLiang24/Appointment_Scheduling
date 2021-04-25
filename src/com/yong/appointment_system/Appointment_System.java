@@ -9,6 +9,7 @@ import com.yong.utility.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +41,7 @@ public class Appointment_System extends Application{
         } catch (SQLException ex) {
             ex.getStackTrace();
         } */
+        //Locale.setDefault(new Locale("fr"));
         launch(args);
        // DBConnection.closeConnection();
     }

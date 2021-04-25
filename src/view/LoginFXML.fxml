@@ -18,32 +18,32 @@
          <children>
             <HBox alignment="BOTTOM_CENTER" prefHeight="57.0" prefWidth="600.0">
                <children>
-                  <Label text="Username:  ">
+                  <Label fx:id="usernameLabel" text="Username:">
                      <HBox.margin>
                        
                      </HBox.margin></Label>
-                  <TextField fx:id="userNameTxt" maxWidth="149.0" prefWidth="149.0" />
+                  <TextField fx:id="UsernameTxt" maxWidth="149.0" prefWidth="149.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="57.0" prefWidth="600.0">
                <children>
-                  <Label text="Password:  ">
+                  <Label fx:id="PasswordLabel" text="Password:">
                      <HBox.margin>
                        
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="passwordTxt" maxWidth="150.0" prefHeight="25.0" prefWidth="150.0" />
+                  <TextField fx:id="PasswordTxt" maxWidth="150.0" prefHeight="25.0" prefWidth="150.0" />
                </children>
             </HBox>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#loginHandler" prefHeight="29.0" prefWidth="105.0" text="Login" />
+            <Button fx:id="LoginBtnLabel" defaultButton="true" mnemonicParsing="false" onAction="#loginHandler" prefHeight="29.0" prefWidth="105.0" text="Login" />
             <HBox alignment="CENTER" prefHeight="85.0" prefWidth="506.0">
                <children>
-                  <Label text="Current Location" />
+                  <Label fx:id="locationLabel" text="Current Location" />
                   <Label text=":  " />
                   <Label fx:id="UserLocation" text="placeholder" />
                </children>
             </HBox>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#exitApp" prefHeight="25.0" prefWidth="105.0" text="Quit" />
+            <Button fx:id="quitLabel" defaultButton="true" mnemonicParsing="false" onAction="#exitApp" prefHeight="25.0" prefWidth="105.0" text="Quit" />
          </children>
       </VBox>
    </children>
