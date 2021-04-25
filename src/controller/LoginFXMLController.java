@@ -32,15 +32,12 @@ public class LoginFXMLController implements Initializable {
     @FXML private Label locationLabel;
     @FXML private Label UserLocation;
     @FXML private Button quitLabel;
+    @FXML private Label ErrorMsg;
     
     private String emptyInput=""; //login empty error message String
     private String invalidInput="";//login invalid error message String
     private ObservableList<User> userList;
-    
-
    
-
- 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //initialize the user data from database and save it to a local userList.
@@ -50,11 +47,9 @@ public class LoginFXMLController implements Initializable {
         //create a reference for the zoneID default location
         ZoneId localLocation = ZoneId.of(TimeZone.getDefault().getID());
         //convert the ZoneId type to a string
-        String userLocation = String.valueOf(localLocation);
-        //pass the default location to the Label Userlocation
-        UserLocation.setText(userLocation);
+        UserLocation.setText(String.valueOf(localLocation));
         
-        //translate the login page to French when system locale set to French
+        //translate the login page to French when system locale is set to French
         if(Locale.getDefault().getLanguage().equals("fr")){
             rb = ResourceBundle.getBundle("controller/Lan", Locale.getDefault());
             usernameLabel.setText(rb.getString("username"));
@@ -86,9 +81,9 @@ public class LoginFXMLController implements Initializable {
         if(isLoginValid()){
             System.out.println("proceed to the next scene.");
         }else if(UsernameTxt.getText().isEmpty() || PasswordTxt.getText().isEmpty()){
-            System.out.println(emptyInput);
+            ErrorMsg.setText(emptyInput);
         }else{
-            System.out.println(invalidInput);
+            ErrorMsg.setText(invalidInput);
         }
         
 

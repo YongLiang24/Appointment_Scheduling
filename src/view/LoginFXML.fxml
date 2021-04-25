@@ -44,6 +44,11 @@
                </children>
             </HBox>
             <Button fx:id="quitLabel" defaultButton="true" mnemonicParsing="false" onAction="#exitApp" prefHeight="25.0" prefWidth="105.0" text="Quit" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="ErrorMsg" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
