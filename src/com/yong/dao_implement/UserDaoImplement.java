@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yong.dao_implement;
 
 import com.yong.dao_interface.UserDao;
@@ -11,15 +6,17 @@ import com.yong.utility.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author yongl
  */
+/** This class implements the user data access interface. */
 public class UserDaoImplement implements UserDao{
 
+    /** This method gets all users from database. 
+     @return Returns an observableList containing all user objects
+     */
     @Override
     public ObservableList<User> getAllUsers() {
         //create an observeableList to hold User objects.

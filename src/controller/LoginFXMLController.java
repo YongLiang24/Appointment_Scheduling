@@ -22,6 +22,7 @@ import model.User;
  *
  * @author yongl
  */
+/** This is a controller class for the login form page. */
 public class LoginFXMLController implements Initializable {
     
     @FXML private Label usernameLabel;
@@ -38,6 +39,9 @@ public class LoginFXMLController implements Initializable {
     private String invalidInput="";//login invalid error message String
     private ObservableList<User> userList;
    
+    /** This initialize method runs when a stage starts.it is also able to translate text to French.
+     * @param url not currently using
+     * @param rb a resourceBundle reference*/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //initialize the user data from database and save it to a local userList.
@@ -66,17 +70,21 @@ public class LoginFXMLController implements Initializable {
         }
     }    
 
+    /** This method terminates the program. 
+     * @param event ActionEvent reference*/
     @FXML
     private void exitApp(ActionEvent event) {
         System.exit(0);
     }
     
+    /** This action event method responsible for tracking user login activities. 
+     * @param event ActionEvent reference 
+     * @throws java.io.IOException handles file IOException*/
     @FXML
     void loginHandler(ActionEvent event) throws IOException {
         //track user login activity and append them to a txt file.
         LoginActivity userLogin = new LoginActivity();
-        userLogin.writeToFile(true);
-        //System.out.println(isLoginValid());
+        userLogin.writeToFile(isLoginValid(), UsernameTxt.getText());
         //if user input is valid, proceed to the next scene, otherwise displays an error message.
         if(isLoginValid()){
             System.out.println("proceed to the next scene.");
@@ -88,7 +96,8 @@ public class LoginFXMLController implements Initializable {
         
 
     } 
-    //this method returns true when user inputs match the query result.
+    /** this method returns true when user inputs match the query result. 
+     * @return returns a Boolean*/
     private boolean isLoginValid(){   
         String inputName = UsernameTxt.getText();//set user inputs this local variable.
         String inputPass = PasswordTxt.getText();//set user inputs this local variable.

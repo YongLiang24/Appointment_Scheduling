@@ -47,3 +47,8 @@ car2021-04-25T12:15:14.490340900
 car2021-04-25T12:15:28.680235700
 car2021-04-25T12:15:35.960232100
 car2021-04-25T12:15:37.927640400
+car2021-04-25T23:14:10.703464
+The user: test successfully logged in at 2021-04-26T00:43:49.187023200
+The user: badguy enters an invalid login at 2021-04-26T00:43:57.616235700
+The user [admin] successfully logged in at 2021-04-26T00:45:41.948631900
+The user [Test] enters an invalid login at 2021-04-26T00:45:52.195197200

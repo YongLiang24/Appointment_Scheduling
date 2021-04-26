@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yong.dao_interface;
 
 import model.User;
@@ -12,8 +7,8 @@ import javafx.collections.ObservableList;
  *
  * @author yongl
  */
+/** This interface defines an ObservableList of User type method. */
 public interface UserDao {
-    
     public ObservableList<User> getAllUsers();
     
 }

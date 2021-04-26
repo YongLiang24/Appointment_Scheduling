@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.yong.utility;
 
 import java.sql.Connection;
@@ -13,6 +8,7 @@ import java.sql.SQLException;
  *
  * @author yongl
  */
+/** This class utilizes JDBC to connect to a database and establish a connection. */
 public class DBConnection {
     
     private static final String CONNECTION_TYPE="jdbc";
@@ -25,7 +21,8 @@ public class DBConnection {
     private static final String USER_NAME="U06PaL";
     private static final String PASSWORD="53688828640";
     private static Connection CONN= null;
-    
+    /** This method start the connection. 
+     * @return Returns a Connection reference */
     public static Connection startConnection(){
         try{
         Class.forName(JDBC_DRIVER);
@@ -37,7 +34,8 @@ public class DBConnection {
         }
         return CONN;
     }
-    
+    /** This method gets a Connection reference. 
+     * @return Returns a CONN reference. */
     public static Connection getConnection(){
         return CONN;
     }

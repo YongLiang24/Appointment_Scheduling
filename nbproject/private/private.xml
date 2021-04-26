@@ -7,9 +7,10 @@
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/appointment_system/Appointment_System.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_implement/UserDaoImplement.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/view/LoginFXML.fxml</file>
-            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/Users.java</file>
+            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/User.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/controller/LoginFXMLController.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_interface/UserDao.java</file>
+            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/utility/DBConnection.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/controller/Lan_fr.properties</file>
         </group>
     </open-files>
