@@ -4,13 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
+/** This class utilizes JDBC to connect to a database and establish a connection.
  * @author yongl
  */
-/** This class utilizes JDBC to connect to a database and establish a connection. */
 public class DBConnection {
-    
     private static final String CONNECTION_TYPE="jdbc";
     private static final String SQL_TYPE=":mysql:";
     private static final String SERVER_NAME="//wgudb.ucertify.com:3306/";
@@ -39,7 +36,7 @@ public class DBConnection {
     public static Connection getConnection(){
         return CONN;
     }
-    
+    /** this method closes the connection. Gets called when program closes. */
     public static void closeConnection(){
         try{
             CONN.close();

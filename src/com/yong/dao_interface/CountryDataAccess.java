@@ -1,4 +1,4 @@
-package com.yong.functional_interface;
+package com.yong.dao_interface;
 
 import javafx.collections.ObservableList;
 import model.Country;

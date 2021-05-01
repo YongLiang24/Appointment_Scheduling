@@ -1,17 +1,14 @@
 package com.yong.appointment_system;
 import com.yong.utility.DBConnection;
-import java.util.Locale;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
+/** This is the application's main class.
  * @author yongl
  */
-/** This is the application's main class. */
 public class Appointment_System extends Application{
 
     /** This main method starts a connection, launch the passing argument and closes a connection. 

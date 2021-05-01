@@ -1,8 +1,8 @@
 package controller;
 
 import com.yong.dao_implement.UserDAOImplement;
-import com.yong.functional_interface.SceneSwitch;
 import com.yong.utility.LoginActivity;
+import com.yong.utility.StageSwitch;
 import java.io.IOException;
 import java.net.URL;
 import java.time.ZoneId;
@@ -12,14 +12,10 @@ import java.util.TimeZone;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import model.User;
 
 /**
@@ -43,8 +39,6 @@ public class LoginFXMLController implements Initializable {
     private String emptyInput=""; //login empty error message String
     private String invalidInput="";//login invalid error message String
     private ObservableList<User> userList;
-    Stage stage;
-    Parent scene;
    
     /** This initialize method runs when a stage starts.it is also able to translate text to French.
      * @param url not currently using
@@ -94,19 +88,16 @@ public class LoginFXMLController implements Initializable {
         userLogin.writeToFile(isLoginValid(), UsernameTxt.getText());
         //if user input is valid, proceed to the next scene, otherwise displays an error message.
         if(isLoginValid()){
-            System.out.println("login = 1");
-                stage = (Stage)((Button) event.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/view/CustomerFXML.fxml"));
-                stage.setScene(new Scene(scene));
-                stage.show();           
+            //call the stage switch utility class and method.
+              String viewFilePath ="/view/CustomerFXML.fxml";
+              StageSwitch newStage = new StageSwitch();
+              newStage.switchStage(viewFilePath, event);
            
         }else if(UsernameTxt.getText().isEmpty() || PasswordTxt.getText().isEmpty()){
             ErrorMsg.setText(emptyInput);
         }else{
             ErrorMsg.setText(invalidInput);
         }
-        
-
     } 
     /** this method returns true when user inputs match the query result. 
      * @return returns a Boolean*/

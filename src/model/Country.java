@@ -5,9 +5,16 @@ package model;
  * @author yongl
  */
 public class Country {
-    private String Country;
-    private int Country_ID;
-
+    private final String Country;
+    private final int Country_ID;
+    /** Country constructor.
+     * @param Country Country names
+     * @param Country_ID Country ID*/
+    public Country(String Country, int Country_ID) {
+        this.Country = Country;
+        this.Country_ID = Country_ID;
+    }
+    
     /** Country getter method. 
      * @return the Country
      */

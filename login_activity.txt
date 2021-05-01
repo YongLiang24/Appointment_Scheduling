@@ -4,3 +4,9 @@ The user [test] successfully logged in at 2021-04-28T01:02:19.097162500
 The user [test] successfully logged in at 2021-04-28T01:04:14.769740300
 The user [bjhkhjk] enters an invalid login at 2021-05-01T13:43:19.319035800
 The user [admin] successfully logged in at 2021-05-01T13:43:43.037651
+The user [test] successfully logged in at 2021-05-01T14:08:51.648025900
+The user [test] successfully logged in at 2021-05-01T14:17:49.522074
+The user [test] successfully logged in at 2021-05-01T14:49:53.884267800
+The user [test] successfully logged in at 2021-05-01T14:50:47.508011100
+The user [admin] successfully logged in at 2021-05-01T14:52:02.599494500
+The user [test] successfully logged in at 2021-05-01T15:10:46.277396

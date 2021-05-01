@@ -6,13 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
 import com.yong.dao_interface.UserDataAccess;
-/**
- *
+
+/** This class implements the user data access interface.
  * @author yongl
  */
-/** This class implements the user data access interface. */
 public class UserDAOImplement implements UserDataAccess{
-
     /** This method gets all users from database. 
      @return Returns an observableList containing all user objects
      */
