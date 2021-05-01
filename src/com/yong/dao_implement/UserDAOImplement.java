@@ -1,18 +1,17 @@
 package com.yong.dao_implement;
 
-import com.yong.dao_interface.UserDao;
 import model.User;
 import com.yong.utility.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.*;
-
+import com.yong.dao_interface.UserDataAccess;
 /**
  *
  * @author yongl
  */
 /** This class implements the user data access interface. */
-public class UserDaoImplement implements UserDao{
+public class UserDAOImplement implements UserDataAccess{
 
     /** This method gets all users from database. 
      @return Returns an observableList containing all user objects
@@ -20,8 +19,7 @@ public class UserDaoImplement implements UserDao{
     @Override
     public ObservableList<User> getAllUsers() {
         //create an observeableList to hold User objects.
-        ObservableList<User> userList = FXCollections.observableArrayList();
-        
+        ObservableList<User> userList = FXCollections.observableArrayList();   
         try {
             String sql = "select * from users";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);

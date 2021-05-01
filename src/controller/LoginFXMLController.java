@@ -1,6 +1,7 @@
 package controller;
 
-import com.yong.dao_implement.UserDaoImplement;
+import com.yong.dao_implement.UserDAOImplement;
+import com.yong.functional_interface.SceneSwitch;
 import com.yong.utility.LoginActivity;
 import java.io.IOException;
 import java.net.URL;
@@ -11,10 +12,14 @@ import java.util.TimeZone;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.User;
 
 /**
@@ -38,6 +43,8 @@ public class LoginFXMLController implements Initializable {
     private String emptyInput=""; //login empty error message String
     private String invalidInput="";//login invalid error message String
     private ObservableList<User> userList;
+    Stage stage;
+    Parent scene;
    
     /** This initialize method runs when a stage starts.it is also able to translate text to French.
      * @param url not currently using
@@ -45,7 +52,7 @@ public class LoginFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //initialize the user data from database and save it to a local userList.
-        UserDaoImplement allUsers = new UserDaoImplement();
+        UserDAOImplement allUsers = new UserDAOImplement();
         userList = allUsers.getAllUsers();
         
         //create a reference for the zoneID default location
@@ -87,7 +94,12 @@ public class LoginFXMLController implements Initializable {
         userLogin.writeToFile(isLoginValid(), UsernameTxt.getText());
         //if user input is valid, proceed to the next scene, otherwise displays an error message.
         if(isLoginValid()){
-            System.out.println("proceed to the next scene.");
+            System.out.println("login = 1");
+                stage = (Stage)((Button) event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/view/CustomerFXML.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();           
+           
         }else if(UsernameTxt.getText().isEmpty() || PasswordTxt.getText().isEmpty()){
             ErrorMsg.setText(emptyInput);
         }else{
