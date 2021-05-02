@@ -1,6 +1,7 @@
 package controller;
 
 import com.yong.dao_implement.CountryDAOImplement;
+import com.yong.dao_implement.CustomerDAOImplement;
 import com.yong.dao_implement.StateDAOImplement;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,14 +26,15 @@ public class CustomerFXMLController implements Initializable {
      * @param rb ResourceBundle reference*/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //load countries data
+        //load countries data from database
         CountryDAOImplement getAllCountries = new CountryDAOImplement();
         CountryList = getAllCountries.getAllCountries();
-        
-        //load states data
+        //load states data from database
         StateDAOImplement getAllStates = new StateDAOImplement();
         StateList = getAllStates.getAllStates();
-        
+        //load customer data from database
+        CustomerDAOImplement getAllCustomers = new CustomerDAOImplement();
+        CustomerList = getAllCustomers.getAllCustomers();
     }    
     
 }
