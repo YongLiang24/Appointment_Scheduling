@@ -1,17 +1,17 @@
 package model;
 
 /** A customer model class.
- *
  * @author yongl
  */
 public class Customer {
     private int Customer_ID;
-    private String Customer_Name;
+    private String Name;
     private String Address;
     private String Postal_Code;
     private String Phone;
-    //Created_Date, Created_By, Last_Update, Last_Updated_By
     private int Division_ID;
+    private String Division;
+    private String Country;
     /** Empty constructor to allow creating this class without parameters. */
     public Customer(){}
     /** A constructor with all necessary parameters.
@@ -23,17 +23,28 @@ public class Customer {
      * @param Division_ID first level division ID*/
     public Customer(int Customer_ID, String Customer_Name, String Address, String Postal_Code, String Phone, int Division_ID) {
         this.Customer_ID = Customer_ID;
-        this.Customer_Name = Customer_Name;
+        this.Name = Customer_Name;
         this.Address = Address;
         this.Postal_Code = Postal_Code;
         this.Phone = Phone;
         this.Division_ID = Division_ID;
     }
-
+    //a constructor with country and division for FXML tableview.
+    public Customer(int Customer_ID, String Name, String Address, String Postal_Code, String Phone, int Division_ID, String Division, String Country) {
+        this.Customer_ID = Customer_ID;
+        this.Name = Name;
+        this.Address = Address;
+        this.Postal_Code = Postal_Code;
+        this.Phone = Phone;
+        this.Division_ID = Division_ID;
+        this.Division = Division;
+        this.Country = Country;
+    }
+    
     /** Customer name getter.
      * @return  get customer name*/
-    public String getCustomer_name() {
-        return Customer_Name;
+    public String getName() {
+        return Name;
     }
     /** Address getter.
      * @return get address */
@@ -62,5 +73,19 @@ public class Customer {
     public int getCustomer_ID() {
         return Customer_ID;
     }
+    /** Division getter. 
+     * @return the Customer_ID
+     */
+    public String getDivision() {
+        return Division;
+    }
+    /** Country getter. 
+     * @return the Customer_ID
+     */
+    public String getCountry() {
+        return Country;
+    }
+    
+    
     
 }

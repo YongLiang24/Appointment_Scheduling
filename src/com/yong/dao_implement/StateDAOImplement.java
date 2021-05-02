@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.State;
+import model.Division;
 
 /** An implement method for States data access.
  * @author yongl
@@ -19,8 +19,8 @@ import model.State;
 public class StateDAOImplement implements StateDataAccess{
 
     @Override
-    public ObservableList<State> getAllStates() {
-        ObservableList<State> stateList = FXCollections.observableArrayList();   
+    public ObservableList<Division> getAllStates() {
+        ObservableList<Division> stateList = FXCollections.observableArrayList();   
         try {
             String sql = "select * from first_level_divisions";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -30,7 +30,7 @@ public class StateDAOImplement implements StateDataAccess{
                 int divisionID = rs.getInt("Division_ID");
                 String divisionName = rs.getString("Division");
                 int countryID = (int)rs.getInt("COUNTRY_ID");
-                State state = new State(divisionID, divisionName, countryID);
+                Division state = new Division(divisionID, divisionName, countryID);
                 //add the user objects to the stateList
                 stateList.add(state);
             }         

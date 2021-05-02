@@ -3,7 +3,7 @@ package model;
 /** This is a first level divisions (states) model.
  * @author yongl
  */
-public class State {
+public class Division {
     private final int Division_ID;
     private final String Division;
     private final int Country_ID;
@@ -12,7 +12,7 @@ public class State {
      * @param Division_ID Division ID
      * @param Division Division
      * @param Country_ID Country ID */
-    public State(int Division_ID, String Division, int Country_ID) {
+    public Division(int Division_ID, String Division, int Country_ID) {
         this.Division_ID = Division_ID;
         this.Division = Division;
         this.Country_ID = Country_ID;

@@ -4,13 +4,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="controller.CustomerFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFXMLController">
    <children>
-      <TableView layoutX="46.0" layoutY="40.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableview" layoutX="2.0" layoutY="-1.0" prefHeight="332.0" prefWidth="561.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="Customer" prefWidth="95.42852568626404" text="Name" />
+          <TableColumn fx:id="Address" prefWidth="96.00003051757812" text="Address" />
+            <TableColumn fx:id="Postal_Code" prefWidth="85.71430969238281" text="Postal" />
+            <TableColumn fx:id="Phone" prefWidth="85.71429443359375" text="Phone" />
+            <TableColumn fx:id="Division" prefWidth="75.0" text="Division" />
+            <TableColumn fx:id="Country" prefWidth="75.0" text="Country" />
         </columns>
       </TableView>
    </children>
