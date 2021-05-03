@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,6 +29,11 @@ public class CustomerFXMLController implements Initializable {
     private ObservableList<Division> DivisionList;
     private ObservableList<Customer> CustomerList;
     private ObservableList<Customer> CustomerDivisionList;
+    /**
+     *this is a list that contains only the selected customer.
+     * Making it a static member to allow it to use between scenes and stages.
+     */
+    public static ObservableList<Customer> listCustomer;
     
     @FXML private TableView<Customer> tableview;
     @FXML private TableColumn<Customer, String> Customer;
@@ -35,6 +42,7 @@ public class CustomerFXMLController implements Initializable {
     @FXML private TableColumn<Customer, String> Phone;
     @FXML private TableColumn<Customer, String> Division;
     @FXML private TableColumn<Customer, String> Country;
+    @FXML private Label Customer_Message;
     
     private String divisionName;
     private int countryID;
@@ -57,9 +65,20 @@ public class CustomerFXMLController implements Initializable {
         
         //generate a list of customers with division and country data.
         CustomerDivisionList = CustomerDivisionList(CustomerList, DivisionList, CountryList);
-        //call this method to set data into the table view using CustomerDivisionList.
+        //call the set tableview method to set data into the table view using CustomerDivisionList.
         setTableView(CustomerDivisionList);          
     }    
+    @FXML
+    void selectCustomer(ActionEvent event) {
+        listCustomer=tableview.getSelectionModel().getSelectedItems();
+        try{
+        System.out.println(listCustomer.get(0).getCountry().isEmpty());
+        }
+        catch(Exception e){
+            Customer_Message.setText("Please select a customer first.");
+        }
+        
+    }
     
     /** This method utilizes Lambda Expressions to retrieve division and country data related to the customers. 
      It generates customer objects with the correct divisions and countries and return an observableList.
@@ -89,8 +108,8 @@ public class CustomerFXMLController implements Initializable {
             return null;
             };
           countryName= getCountry.getCountry(countryID).getCountry();
-        //String Name, String Address, String Postal_Code, String Phone, String Division, String Country
-          Customer custDivision = new Customer(c.getName(), c.getAddress(), c.getPostal_Code(),c.getPhone(), divisionName, countryName);
+        //instantiate a new customer with divisions and countries data.
+          Customer custDivision = new Customer(c.getName(), c.getAddress(), c.getPostal_Code(),c.getPhone(), divisionName, countryName, c.getCustomer_ID(), c.getDivision_ID(), countryID);
           CustDiviList.add(custDivision);
         }
         return CustDiviList;

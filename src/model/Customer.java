@@ -12,6 +12,7 @@ public class Customer {
     private int Division_ID;
     private String Division;
     private String Country;
+    private int Country_ID;
     /** Empty constructor to allow creating this class without parameters. */
     public Customer(){}
     /** A constructor with all necessary parameters.
@@ -30,13 +31,16 @@ public class Customer {
         this.Division_ID = Division_ID;
     }
     //a constructor with country and division for FXML tableview.
-    public Customer(String Name, String Address, String Postal_Code, String Phone, String Division, String Country) {
+    public Customer(String Name, String Address, String Postal_Code, String Phone, String Division, String Country, int Customer_ID, int Division_ID, int Country_ID) {
         this.Name = Name;
         this.Address = Address;
         this.Postal_Code = Postal_Code;
         this.Phone = Phone;
         this.Division = Division;
         this.Country = Country;
+        this.Customer_ID=Customer_ID;
+        this.Division_ID=Division_ID;
+        this.Country_ID=Country_ID;
     }
     
     /** Customer name getter.
@@ -78,10 +82,16 @@ public class Customer {
         return Division;
     }
     /** Country getter. 
-     * @return the Customer_ID
+     * @return the Country_Name
      */
     public String getCountry() {
         return Country;
+    }
+    /** Country ID getter. 
+     * @return the Country_ID
+     */
+    public int getCountry_ID() {
+        return Country_ID;
     }
     
     
