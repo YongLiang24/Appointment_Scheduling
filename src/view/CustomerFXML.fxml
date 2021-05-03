@@ -6,14 +6,14 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFXMLController">
    <children>
-      <TableView fx:id="tableview" layoutX="2.0" layoutY="-1.0" prefHeight="332.0" prefWidth="561.0">
+      <TableView fx:id="tableview" layoutY="-1.0" prefHeight="332.0" prefWidth="419.0">
         <columns>
-          <TableColumn fx:id="Customer" prefWidth="95.42852568626404" text="Name" />
-          <TableColumn fx:id="Address" prefWidth="96.00003051757812" text="Address" />
-            <TableColumn fx:id="Postal_Code" prefWidth="85.71430969238281" text="Postal" />
-            <TableColumn fx:id="Phone" prefWidth="85.71429443359375" text="Phone" />
-            <TableColumn fx:id="Division" prefWidth="75.0" text="Division" />
-            <TableColumn fx:id="Country" prefWidth="75.0" text="Country" />
+          <TableColumn fx:id="Customer" prefWidth="78.28570342063904" text="Name" />
+          <TableColumn fx:id="Address" prefWidth="106.85714721679688" text="Address" />
+            <TableColumn fx:id="Postal_Code" prefWidth="53.71429443359375" text="Postal" />
+            <TableColumn fx:id="Phone" prefWidth="88.00001525878906" text="Phone" />
+            <TableColumn fx:id="Division" prefWidth="57.142822265625" text="Division" />
+            <TableColumn fx:id="Country" prefWidth="50.85711669921875" text="Country" />
         </columns>
       </TableView>
    </children>

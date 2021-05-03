@@ -30,13 +30,11 @@ public class Customer {
         this.Division_ID = Division_ID;
     }
     //a constructor with country and division for FXML tableview.
-    public Customer(int Customer_ID, String Name, String Address, String Postal_Code, String Phone, int Division_ID, String Division, String Country) {
-        this.Customer_ID = Customer_ID;
+    public Customer(String Name, String Address, String Postal_Code, String Phone, String Division, String Country) {
         this.Name = Name;
         this.Address = Address;
         this.Postal_Code = Postal_Code;
         this.Phone = Phone;
-        this.Division_ID = Division_ID;
         this.Division = Division;
         this.Country = Country;
     }
