@@ -3,7 +3,11 @@ import com.yong.dao_implement.CountryDAOImplement;
 import com.yong.dao_implement.CustomerDAOImplement;
 import com.yong.dao_implement.StateDAOImplement;
 import com.yong.functional_interface.GetCountry;
+import com.yong.utility.AlertConfirmation;
+import com.yong.utility.StageSwitch;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
@@ -11,10 +15,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import model.Country;
 import model.Customer;
 import model.Division;
@@ -43,6 +49,7 @@ public class CustomerFXMLController implements Initializable {
     @FXML private TableColumn<Customer, String> Division;
     @FXML private TableColumn<Customer, String> Country;
     @FXML private Label Customer_Message;
+    @FXML private AnchorPane Customer_AnchorPane;
     
     private String divisionName;
     private int countryID;
@@ -78,6 +85,23 @@ public class CustomerFXMLController implements Initializable {
             Customer_Message.setText("Please select a customer first.");
         }
         
+    }
+    /** This method gets called when user clicks on the logout button. 
+     * It prompts user for confirmation.
+     @param event an event reference.
+     @throws IOException IOException*/
+    @FXML
+    void logOut(ActionEvent event) throws IOException {
+        String alertMessage ="Would you like to logout?";
+        AlertConfirmation alert = new AlertConfirmation();
+        Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage);
+        //if 'OK' is selected, the user is taken back to the login form page.
+        if(buttonType.get() == ButtonType.OK){
+             //call the stage switch utility class and method.
+              String viewFilePath ="/view/LoginFXML.fxml";
+              StageSwitch newStage = new StageSwitch();
+              newStage.switchStage(viewFilePath, event);
+        }
     }
     
     /** This method utilizes Lambda Expressions to retrieve division and country data related to the customers. 
