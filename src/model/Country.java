@@ -29,5 +29,10 @@ public class Country {
         return Country_ID;
     }
     
+    @Override
+    public String toString(){
+        return Country;
+    }
+    
     
 }

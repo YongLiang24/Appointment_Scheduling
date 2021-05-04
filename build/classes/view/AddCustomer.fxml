@@ -8,7 +8,7 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
    <children>
       <ComboBox fx:id="Country_Combo" layoutX="149.0" layoutY="53.0" onAction="#selectCountry" prefWidth="150.0" promptText="Country Select" />
-      <ComboBox fx:id="Division_Combo" layoutX="300.0" layoutY="53.0" onAction="#selectDivision" onMouseEntered="#onDropped" prefWidth="150.0" promptText="Division Select" />
+      <ComboBox fx:id="Division_Combo" layoutX="300.0" layoutY="53.0" onAction="#selectDivision" prefWidth="150.0" promptText="Division Select" />
       <Button layoutX="248.0" layoutY="323.0" mnemonicParsing="false" text="Create" />
       <Label layoutX="251.0" layoutY="14.0" text="Customer Creation" />
       <Button layoutX="300.0" layoutY="323.0" mnemonicParsing="false" text="Cancel" />

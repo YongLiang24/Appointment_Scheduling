@@ -16,11 +16,8 @@ import model.Country;
  */
 public class AddCustomerController implements Initializable {
     
-    @FXML private ComboBox<String> Country_Combo;
+    @FXML private ComboBox<Country> Country_Combo;
     @FXML private ComboBox<?> Division_Combo;
-    
-    private ObservableList <String> countryNameList = FXCollections.observableArrayList();
-    private ObservableList <String> divisionNameList = FXCollections.observableArrayList();
     
     /** #3 Utilized Lambda expression to set country names to the combo box, this expression may be used again for another combo box type. 
      * Initializes the controller class.
@@ -29,16 +26,16 @@ public class AddCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //copy the country names to a local countryNameList.
-        CustomerFXMLController.CountryList.forEach((c) -> {countryNameList.add(c.getCountry());});
+        //CustomerFXMLController.CountryList.forEach((c) -> {countryNameList.add(c.getCountry());});
         //Lambda Expression to set countryNameList to the country combo box.
-        SetComboBox setCountryCombo = cb -> cb.setItems(countryNameList);
+        SetComboBox setCountryCombo = cb -> cb.setItems(CustomerFXMLController.CountryList);
         setCountryCombo.setListToCombo(Country_Combo);
     }    
     
     @FXML
     void selectCountry(ActionEvent event) {
         Country_Combo.getSelectionModel().getSelectedItem();
-        System.out.println(Country_Combo.getSelectionModel().isEmpty());
+        System.out.println(Country_Combo.getSelectionModel().getSelectedItem().getCountry_ID());
 
     }
 
