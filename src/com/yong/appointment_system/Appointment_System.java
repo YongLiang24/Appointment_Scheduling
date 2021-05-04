@@ -10,19 +10,17 @@ import javafx.stage.Stage;
  * @author yongl
  */
 public class Appointment_System extends Application{
-
     /** This main method starts a connection, launch the passing argument and closes a connection. 
     *@param args the command line arguments
     */
     public static void main(String[] args) {
-        
        DBConnection.startConnection();
        launch(args);
        DBConnection.closeConnection();
     }
-
     /** This method loads the view loginFXML file and display a scene.  
      * @param st a Stage object reference
+     * @throws java.lang.Exception throws Exception
      */
     @Override
     public void start(Stage st) throws Exception { 

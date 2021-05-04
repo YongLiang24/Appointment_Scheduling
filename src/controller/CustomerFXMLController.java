@@ -26,21 +26,18 @@ import model.Customer;
 import model.Division;
 
 /**
- * FXML Controller class. 
+ * FXML Customer Display Controller class. 
  * @author yongl*/
 /** This is a customer model controller class. */
 public class CustomerFXMLController implements Initializable {
-    
-    private ObservableList<Country> CountryList;
-    private ObservableList<Division> DivisionList;
-    private ObservableList<Customer> CustomerList;
-    private ObservableList<Customer> CustomerDivisionList;
-    /**
-     *this is a list that contains only the selected customer.
-     * Making it a static member to allow it to use between scenes and stages.
-     */
+    /** A static list that contains only the selected customer.
+     * Making it a static member to allow it to use between scenes and stages.*/
     public static ObservableList<Customer> listCustomer;
-    
+    /** Making CountryList static as they are only used for read only, other controller classes may also access it. */
+    public static ObservableList<Country> CountryList;
+    /** Making DivisionyList static as they are only used for read only, other controller classes may also access it. */
+    public static ObservableList<Division> DivisionList;
+    //Scene Builder references.
     @FXML private TableView<Customer> tableview;
     @FXML private TableColumn<Customer, String> Customer;
     @FXML private TableColumn<Customer, String> Address;
@@ -50,10 +47,12 @@ public class CustomerFXMLController implements Initializable {
     @FXML private TableColumn<Customer, String> Country;
     @FXML private Label Customer_Message;
     @FXML private AnchorPane Customer_AnchorPane;
-    
+    //local fields
     private String divisionName;
     private int countryID;
     private String countryName;
+    private ObservableList<Customer> CustomerList;
+    private ObservableList<Customer> CustomerDivisionList;
     /** Initializes the controller class. Load data from database into the models.
      * get divisions and countries data for customer's table view.
      * @param url URL reference
@@ -74,17 +73,26 @@ public class CustomerFXMLController implements Initializable {
         CustomerDivisionList = CustomerDivisionList(CustomerList, DivisionList, CountryList);
         //call the set tableview method to set data into the table view using CustomerDivisionList.
         setTableView(CustomerDivisionList);          
-    }    
+    }
+    /** This action event will switch to a customer creation page scene. 
+     @param event event reference.*/
     @FXML
-    void selectCustomer(ActionEvent event) {
+    void createCustomer(ActionEvent event) throws IOException {
+        //Create a stage switch utility class reference and call its method.
+        String viewFilePath ="/view/AddCustomer.fxml";
+        StageSwitch newStage = new StageSwitch();
+        newStage.switchStage(viewFilePath, event);    
+    }
+    @FXML
+    void updateCustomer(ActionEvent event) {
         listCustomer=tableview.getSelectionModel().getSelectedItems();
         try{
         System.out.println(listCustomer.get(0).getCountry().isEmpty());
         }
         catch(Exception e){
             Customer_Message.setText("Please select a customer first.");
-        }
-        
+        } 
+
     }
     /** This method gets called when user clicks on the logout button. 
      * It prompts user for confirmation.
@@ -97,7 +105,7 @@ public class CustomerFXMLController implements Initializable {
         Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage);
         //if 'OK' is selected, the user is taken back to the login form page.
         if(buttonType.get() == ButtonType.OK){
-             //call the stage switch utility class and method.
+             //Create a stage switch utility class reference and call its method.
               String viewFilePath ="/view/LoginFXML.fxml";
               StageSwitch newStage = new StageSwitch();
               newStage.switchStage(viewFilePath, event);
@@ -148,6 +156,5 @@ public class CustomerFXMLController implements Initializable {
         Phone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
         Division.setCellValueFactory(new PropertyValueFactory<>("Division"));
         Country.setCellValueFactory(new PropertyValueFactory<>("Country")); 
-    }
-    
+    }  
 }
