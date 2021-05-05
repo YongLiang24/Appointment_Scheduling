@@ -5,6 +5,8 @@ import com.yong.utility.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
@@ -13,6 +15,11 @@ import model.Customer;
  * @author yongl
  */
 public class CustomerDAOImplement implements CustomerDataAccess{
+    
+    LocalDateTime dateTimeNow = LocalDateTime.now();
+    Timestamp ts = Timestamp.valueOf(dateTimeNow);
+    public static int hasCustomerCreated;
+    
     /** This method gets all customers from database. 
      @return Returns an observableList containing all customer objects
      */
@@ -39,6 +46,26 @@ public class CustomerDAOImplement implements CustomerDataAccess{
             ex.getStackTrace();
         }
         return customerList;
+    }
+
+    @Override
+    public void createCustomer(String name, String address, String postal, String phone, String user, int divisionID) {    
+        try {
+            String sql = "insert into customers (Customer_Name, Address, Postal_Code, Phone, Create_date, Created_By, Last_Update, Last_Updated_By, Division_ID) values(?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, address);
+            ps.setString(3, postal);
+            ps.setString(4, phone);
+            ps.setString(5, String.valueOf(ts)); //timestamp object
+            ps.setString(6, user);
+            ps.setString(7, String.valueOf(ts)); //timestamp object
+            ps.setString(8, user);
+            ps.setString(9, String.valueOf(divisionID));
+            hasCustomerCreated = ps.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
     

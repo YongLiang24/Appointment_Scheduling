@@ -28,7 +28,8 @@ public class Country {
     public int getCountry_ID() {
         return Country_ID;
     }
-    
+    /** override the default toString to display country name for the combo box
+     * @return a country name*/
     @Override
     public String toString(){
         return Country;

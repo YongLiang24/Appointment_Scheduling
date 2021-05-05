@@ -1,6 +1,7 @@
 package controller;
 
 import com.yong.dao_implement.UserDAOImplement;
+import com.yong.dao_interface.UserDataAccess;
 import com.yong.utility.LoginActivity;
 import com.yong.utility.StageSwitch;
 import java.io.IOException;
@@ -38,7 +39,8 @@ public class LoginFXMLController implements Initializable {
     
     private String emptyInput=""; //login empty error message String
     private String invalidInput="";//login invalid error message String
-    private ObservableList<User> userList;
+    private ObservableList<User> userList;//list of user objects
+    public static String loggedUser;//store the logged in user for other classes to access.
    
     /** This initialize method runs when a stage starts.it is also able to translate text to French.
      * @param url not currently using
@@ -107,6 +109,7 @@ public class LoginFXMLController implements Initializable {
         for(User user: userList){
             //compare user inputs with query results
             if(user.getUsername().equals(inputName) && user.getPassword().equals(inputPass)){
+                loggedUser = user.getUsername();
                 return true;
             }
         }

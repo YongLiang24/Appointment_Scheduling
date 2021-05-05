@@ -39,5 +39,10 @@ public class Division {
     public int getCountry_ID() {
         return Country_ID;
     }
+    //override the toString method for the objects to display the division names.
+    @Override
+    public String toString(){
+        return Division;
+    }
     
 }

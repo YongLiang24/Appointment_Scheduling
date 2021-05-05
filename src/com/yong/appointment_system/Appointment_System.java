@@ -14,9 +14,10 @@ public class Appointment_System extends Application{
     *@param args the command line arguments
     */
     public static void main(String[] args) {
-       DBConnection.startConnection();
-       launch(args);
-       DBConnection.closeConnection();
+            DBConnection.startConnection();
+            launch(args);
+            DBConnection.closeConnection();
+       
     }
     /** This method loads the view loginFXML file and display a scene.  
      * @param st a Stage object reference
