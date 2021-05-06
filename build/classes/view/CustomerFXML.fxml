@@ -22,7 +22,7 @@
       <Label layoutX="297.0" layoutY="5.0" text="Customers" />
       <Label fx:id="Customer_Message" layoutX="269.0" layoutY="361.0" text=":" />
       <Button layoutX="159.0" layoutY="310.0" mnemonicParsing="false" onAction="#updateCustomer" prefWidth="70.0" text="Update" />
-      <Button layoutX="254.0" layoutY="310.0" mnemonicParsing="false" prefWidth="70.0" text="Delete" />
+      <Button layoutX="254.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteCustomer" prefWidth="70.0" text="Delete" />
       <Button layoutX="389.0" layoutY="310.0" mnemonicParsing="false" text="Appointments" />
       <Button layoutX="541.0" layoutY="310.0" mnemonicParsing="false" onAction="#logOut" text="Logout" />
       <Label layoutY="314.0" text="Customer:" />

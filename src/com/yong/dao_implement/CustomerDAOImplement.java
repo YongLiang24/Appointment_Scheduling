@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
@@ -47,7 +49,14 @@ public class CustomerDAOImplement implements CustomerDataAccess{
         }
         return customerList;
     }
-
+    /** create customers method implementation.
+     * @param name name
+     * @param address address
+     * @param postal postal
+     * @param phone phone
+     * @param user user
+     * @param divisionID division id
+     */
     @Override
     public void createCustomer(String name, String address, String postal, String phone, String user, int divisionID) {    
         try {
@@ -66,6 +75,25 @@ public class CustomerDAOImplement implements CustomerDataAccess{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+    /**
+     * delete customer method
+     * @param customerID customer ID
+     * @return query result.
+     */
+    @Override
+    public int deleteCustomer(int customerID) {
+        int result=0;
+        try {
+            String sql ="delete from customers where Customer_ID =?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, customerID);
+            result = ps.executeUpdate();
+          
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }    
+          return result;
     }
     
     

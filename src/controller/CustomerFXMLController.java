@@ -65,14 +65,9 @@ public class CustomerFXMLController implements Initializable {
         //load states data from database
         StateDAOImplement getAllStates = new StateDAOImplement();
         DivisionList = getAllStates.getAllStates();
-        //load customer data from database
-        CustomerDAOImplement getAllCustomers = new CustomerDAOImplement();
-        CustomerList = getAllCustomers.getAllCustomers();
-        
-        //generate a list of customers with division and country data.
-        CustomerDivisionList = CustomerDivisionList(CustomerList, DivisionList, CountryList);
-        //call the set tableview method to set data into the table view using CustomerDivisionList.
-        setTableView(CustomerDivisionList);          
+
+        setCustomersToTableView();
+        listCustomer=tableview.getSelectionModel().getSelectedItems();
     }
     /** This action event will switch to a customer creation page scene. 
      @param event event reference.*/
@@ -85,7 +80,7 @@ public class CustomerFXMLController implements Initializable {
     }
     @FXML
     void updateCustomer(ActionEvent event) {
-        listCustomer=tableview.getSelectionModel().getSelectedItems();
+        
         try{
         System.out.println(listCustomer.get(0).getCountry().isEmpty());
         }
@@ -93,6 +88,33 @@ public class CustomerFXMLController implements Initializable {
             Customer_Message.setText("Please select a customer first.");
         } 
 
+    }
+    
+    @FXML
+    void deleteCustomer(ActionEvent event) {
+        int deleteResult=0;
+        listCustomer=tableview.getSelectionModel().getSelectedItems();
+        String alertMessage ="Are you sure to delete this customer? ";
+        AlertConfirmation alert = new AlertConfirmation();//pop a confirmation box.
+        Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage);
+        //if 'OK' is selected, the user is taken back to the login form page.
+        if(buttonType.get() == ButtonType.OK){           
+            try{
+            //create a customer DAO object and call the delete method.
+            CustomerDAOImplement deleteCustomer = new CustomerDAOImplement();
+            deleteResult = deleteCustomer.deleteCustomer(listCustomer.get(0).getCustomer_ID());
+                if(deleteResult ==1){
+                    Customer_Message.setText("A customer has been deleted.");
+                    //call this method to refresh/update the tableview
+                    setCustomersToTableView();                  
+                }else{
+                    System.out.println("Customer didnt delete.");
+                }
+            }
+            catch(Exception e){
+                Customer_Message.setText("Please select a customer first.");
+            }
+        }
     }
     /** This method gets called when user clicks on the logout button. 
      * It prompts user for confirmation.
@@ -157,4 +179,14 @@ public class CustomerFXMLController implements Initializable {
         Division.setCellValueFactory(new PropertyValueFactory<>("Division"));
         Country.setCellValueFactory(new PropertyValueFactory<>("Country")); 
     }  
+    
+    private void setCustomersToTableView(){
+        //load customer data from database
+        CustomerDAOImplement getAllCustomers = new CustomerDAOImplement();
+        CustomerList = getAllCustomers.getAllCustomers(); 
+        //generate a list of customers with division and country data.
+        CustomerDivisionList = CustomerDivisionList(CustomerList, DivisionList, CountryList);
+         //call the set tableview method to set data into the table view using CustomerDivisionList.
+        setTableView(CustomerDivisionList);
+    }
 }
