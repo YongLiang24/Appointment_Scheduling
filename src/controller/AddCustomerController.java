@@ -21,8 +21,8 @@ import model.Division;
  */
 public class AddCustomerController implements Initializable {
     
-    @FXML private ComboBox<Country> Country_Combo;
-    @FXML private ComboBox<Division> Division_Combo;
+    @FXML public ComboBox<Country> Country_Combo;
+    @FXML public ComboBox<Division> Division_Combo;
     @FXML private Label WarningMsg;
     @FXML private TextField CustomerName;
     @FXML private TextField Address;
@@ -40,7 +40,6 @@ public class AddCustomerController implements Initializable {
         //Using Lambda Expression to set countryList to the country combo box.
         SetComboBox setCountryCombo = cb -> cb.setItems(CustomerFXMLController.CountryList);
         setCountryCombo.setListToCombo(Country_Combo);
-        System.out.println(LoginFXMLController.loggedUser);
     }    
     
     @FXML

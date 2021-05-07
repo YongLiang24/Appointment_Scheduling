@@ -37,7 +37,9 @@ public class CustomerFXMLController implements Initializable {
     public static ObservableList<Country> CountryList;
     /** Making DivisionyList static as they are only used for read only, other controller classes may also access it. */
     public static ObservableList<Division> DivisionList;
-    //Scene Builder references.
+    /** This static variable is used to pass the selected customer object to the update controller. */
+    public static Customer updateCustomerObj;
+    //Scene Builder reference variables.
     @FXML private TableView<Customer> tableview;
     @FXML private TableColumn<Customer, String> Customer;
     @FXML private TableColumn<Customer, String> Address;
@@ -82,10 +84,15 @@ public class CustomerFXMLController implements Initializable {
     void updateCustomer(ActionEvent event) {
         
         try{
-        System.out.println(listCustomer.get(0).getCountry().isEmpty());
+            updateCustomerObj = listCustomer.get(0);
+            //Create a stage switch utility class reference and call its method.
+            String viewFilePath ="/view/UpdateCustomer.fxml";
+            StageSwitch newStage = new StageSwitch();
+            newStage.switchStage(viewFilePath, event);            
         }
         catch(Exception e){
             Customer_Message.setText("Please select a customer first.");
+            System.out.println("check here");
         } 
 
     }

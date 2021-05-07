@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
@@ -94,6 +92,37 @@ public class CustomerDAOImplement implements CustomerDataAccess{
             ex.printStackTrace();
         }    
           return result;
+    }
+     /**
+     * update customer method
+     * @param Customer_Name update customer name
+     * @param Address update address
+     * @param Postal_Code update postal code
+     * @param Division_ID update the division ID
+     * @param Phone update Phone
+     * @param Customer_ID match the customer ID
+     * @param User Logged in User
+     * @return query result.
+     */
+    @Override
+    public int updateCustomer(String Customer_Name, String Address, String Postal_Code, String Phone, String User, int Division_ID, int Customer_ID) {
+        int updateResult=0;
+        try {
+            String sql ="UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code =?, Phone =?, Last_Update=?, Last_Updated_By=?, Division_ID=? WHERE Customer_ID = ?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setString(1, Customer_Name);
+            ps.setString(2, Address);
+            ps.setString(3, Postal_Code);
+            ps.setString(4, Phone);
+            ps.setString(5, String.valueOf(ts));
+            ps.setString(6, User);
+            ps.setInt(7, Division_ID);
+            ps.setInt(8, Customer_ID);
+            updateResult = ps.executeUpdate();     
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }   
+        return updateResult;
     }
     
     

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateCustomerController">
+   <children>
+      <ComboBox fx:id="UpdateCountryCombo" layoutX="140.0" layoutY="62.0" onAction="#updateSelectCountry" prefWidth="150.0" promptText="Country Select" />
+      <ComboBox fx:id="UpdateDivisionCombo" layoutX="300.0" layoutY="62.0" onAction="#updateSelectDivision" prefWidth="150.0" promptText="Division Select" />
+      <Label layoutX="253.0" layoutY="14.0" text="Customer Update" />
+      <Label layoutX="351.0" layoutY="45.0" text="Divisions" />
+      <Label layoutX="190.0" layoutY="45.0" text="Countries" />
+      <Button layoutX="227.0" layoutY="303.0" mnemonicParsing="false" onAction="#updateBtn" prefWidth="60.0" text="Update" />
+      <Button layoutX="300.0" layoutY="303.0" mnemonicParsing="false" onAction="#cancelBtn" prefWidth="60.0" text="Cancel" />
+      <TextField fx:id="UpdateName" layoutX="216.0" layoutY="106.0" />
+      <TextField fx:id="UpdateAddress" layoutX="216.0" layoutY="153.0" />
+      <TextField fx:id="UpdatePostal" layoutX="216.0" layoutY="200.0" />
+      <TextField fx:id="UpdatePhone" layoutX="216.0" layoutY="248.0" />
+      <Label layoutX="167.0" layoutY="110.0" text="Name:" />
+      <Label layoutX="162.0" layoutY="157.0" text="Address:" />
+      <Label layoutX="140.0" layoutY="204.0" text="Postal Code:" />
+      <Label layoutX="125.0" layoutY="252.0" text="Phone Number:" />
+      <Label fx:id="UpdateMsg" layoutX="149.0" layoutY="345.0" text="Message" />
+   </children>
+</AnchorPane>

@@ -27,5 +27,18 @@ public interface CustomerDataAccess {
      */
     public int deleteCustomer(int customerID);
     
+     /**
+     * update customer method
+     * @param Customer_Name update customer name
+     * @param Address update address
+     * @param Postal_Code update postal code
+     * @param Division_ID update the division ID
+     * @param User Logged in User
+     * @param Phone update Phone
+     * @param Customer_ID match the customer ID
+     * @return query result.
+     */
+    public int updateCustomer(String Customer_Name, String Address, String Postal_Code, String Phone, String User, int Division_ID, int Customer_ID);
+    
     
 }
