@@ -14,7 +14,7 @@
       <Label layoutX="351.0" layoutY="45.0" text="Divisions" />
       <Label layoutX="190.0" layoutY="45.0" text="Countries" />
       <Button layoutX="227.0" layoutY="303.0" mnemonicParsing="false" onAction="#updateBtn" prefWidth="60.0" text="Update" />
-      <Button layoutX="300.0" layoutY="303.0" mnemonicParsing="false" onAction="#cancelBtn" prefWidth="60.0" text="Cancel" />
+      <Button layoutX="300.0" layoutY="303.0" mnemonicParsing="false" onAction="#cancelBtn" prefWidth="60.0" text="Go Back" />
       <TextField fx:id="UpdateName" layoutX="216.0" layoutY="106.0" />
       <TextField fx:id="UpdateAddress" layoutX="216.0" layoutY="153.0" />
       <TextField fx:id="UpdatePostal" layoutX="216.0" layoutY="200.0" />

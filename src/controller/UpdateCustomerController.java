@@ -139,10 +139,7 @@ public class UpdateCustomerController implements Initializable {
     }
     
     private boolean fillTextFields(){
-        if(UpdateName.getText().isEmpty() || UpdateAddress.getText().isEmpty() || UpdatePostal.getText().isEmpty() || UpdatePhone.getText().isEmpty()){
-            return false;
-        }
-        return true;
+        return !(UpdateName.getText().isEmpty() || UpdateAddress.getText().isEmpty() || UpdatePostal.getText().isEmpty() || UpdatePhone.getText().isEmpty());
     }
     
 }

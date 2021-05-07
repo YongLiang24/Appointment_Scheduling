@@ -71,7 +71,7 @@ public class AddCustomerController implements Initializable {
         CustomerDAOImplement createCustomer = new CustomerDAOImplement();
         createCustomer.createCustomer(CustomerName.getText(), Address.getText(), PostalCode.getText(), PhoneNumber.getText(), LoginFXMLController.loggedUser, DivisionID);
         if(CustomerDAOImplement.hasCustomerCreated ==1){
-           WarningMsg.setText("Message: A new customer has been created successfully. Select go back or create another one.");
+           WarningMsg.setText("Message: A new customer has been created successfully.");
            emptyFormInputs();
         }else{
            WarningMsg.setText("Message: Failed to create a new customer. Please try again.");
