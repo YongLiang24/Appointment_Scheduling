@@ -16,8 +16,7 @@ public class Appointment_System extends Application{
     public static void main(String[] args) {
             DBConnection.startConnection();
             launch(args);
-            DBConnection.closeConnection();
-       
+            DBConnection.closeConnection();    
     }
     /** This method loads the view loginFXML file and display a scene.  
      * @param st a Stage object reference

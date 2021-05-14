@@ -64,9 +64,9 @@ public class CustomerDAOImplement implements CustomerDataAccess{
             ps.setString(2, address);
             ps.setString(3, postal);
             ps.setString(4, phone);
-            ps.setString(5, String.valueOf(ts)); //timestamp object
+            ps.setTimestamp(5,ts); //timestamp object
             ps.setString(6, user);
-            ps.setString(7, String.valueOf(ts)); //timestamp object
+            ps.setTimestamp(7, ts); //timestamp object
             ps.setString(8, user);
             ps.setString(9, String.valueOf(divisionID));
             hasCustomerCreated = ps.executeUpdate();
@@ -114,7 +114,7 @@ public class CustomerDAOImplement implements CustomerDataAccess{
             ps.setString(2, Address);
             ps.setString(3, Postal_Code);
             ps.setString(4, Phone);
-            ps.setString(5, String.valueOf(ts));
+            ps.setTimestamp(5, ts);
             ps.setString(6, User);
             ps.setInt(7, Division_ID);
             ps.setInt(8, Customer_ID);

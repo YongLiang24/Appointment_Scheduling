@@ -1,7 +1,6 @@
 package controller;
 
 import com.yong.dao_implement.UserDAOImplement;
-import com.yong.dao_interface.UserDataAccess;
 import com.yong.utility.LoginActivity;
 import com.yong.utility.StageSwitch;
 import java.io.IOException;

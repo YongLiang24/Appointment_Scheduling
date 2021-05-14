@@ -3,7 +3,7 @@ package com.yong.dao_interface;
 import javafx.collections.ObservableList;
 import model.Country;
 
-/** Country interface, designed to be a functional interface.
+/** Country interface.
  * @author yongl
  */
 public interface CountryDataAccess {

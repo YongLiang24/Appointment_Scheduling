@@ -160,7 +160,7 @@ public class CustomerFXMLController implements Initializable {
             countryID = d.getCountry_ID();
         });  
         
-         /** #2 Using a custom interface for Lambda Expression that is implemented on the fly. 
+         /** #2 Using a custom interface for Lambda Expression to return a country name. 
          * Returns a country based on the division foreign key ID.*/
         GetCountry getCountry= ct ->{
             for(Country country : countryList){
@@ -195,5 +195,13 @@ public class CustomerFXMLController implements Initializable {
         CustomerDivisionList = CustomerDivisionList(CustomerList, DivisionList, CountryList);
          //call the set tableview method to set data into the table view using CustomerDivisionList.
         setTableView(CustomerDivisionList);
+    }
+    
+    @FXML
+    void getAppointments(ActionEvent event) throws IOException {
+        String viewFilePath ="/view/Appointment.fxml";
+        StageSwitch newStage = new StageSwitch();
+        newStage.switchStage(viewFilePath, event); 
+
     }
 }
