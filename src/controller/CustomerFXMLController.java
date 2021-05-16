@@ -103,7 +103,7 @@ public class CustomerFXMLController implements Initializable {
         listCustomer=tableview.getSelectionModel().getSelectedItems();
         String alertMessage ="Are you sure to delete this customer? ";
         AlertConfirmation alert = new AlertConfirmation();//pop a confirmation box.
-        Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage);
+        Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage, "default");
         //if 'OK' is selected, the user is taken back to the login form page.
         if(buttonType.get() == ButtonType.OK){           
             try{
@@ -131,7 +131,7 @@ public class CustomerFXMLController implements Initializable {
     void logOut(ActionEvent event) throws IOException {
         String alertMessage ="Would you like to logout?";
         AlertConfirmation alert = new AlertConfirmation();
-        Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage);
+        Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage, "default");
         //if 'OK' is selected, the user is taken back to the login form page.
         if(buttonType.get() == ButtonType.OK){
              //Create a stage switch utility class reference and call its method.

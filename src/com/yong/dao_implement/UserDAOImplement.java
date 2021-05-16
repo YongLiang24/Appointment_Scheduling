@@ -24,7 +24,7 @@ public class UserDAOImplement implements UserDataAccess{
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 //create user objects using users data from database
-                User user = new User(rs.getString("User_Name"),rs.getString("Password"));
+                User user = new User(rs.getString("User_Name"),rs.getString("Password"), rs.getInt("User_ID"));
                 //add the user objects to the userList
                 userList.add(user);
             }         

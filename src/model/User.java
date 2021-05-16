@@ -7,6 +7,7 @@ package model;
 public class User {
     private String username;
     private String password;
+    private int User_ID;
     /** An empty constructor to allow to instantiate the class without passing arguments. */
     public User(){}
     /** A constructor for setting values for username and password private variables.
@@ -16,6 +17,19 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User(String username, String password, int User_ID) {
+        this.username = username;
+        this.password = password;
+        this.User_ID = User_ID;
+    }
+    
+    
+
+    public int getUser_ID() {
+        return User_ID;
+    }
+    
     /** A getter method to get username.
      * @return  username*/
     public String getUsername(){

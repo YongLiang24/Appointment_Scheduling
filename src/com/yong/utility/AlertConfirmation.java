@@ -15,11 +15,15 @@ public class AlertConfirmation {
      * @param anchorpane Accepts an AnchorPane from scene builder.
      * @param alertText Accepts a custom text for the confirmation box description.
      * @return  An Optional ButtonType*/
-    public Optional<ButtonType> alertConfirmation(AnchorPane anchorpane, String alertText){
+    public Optional<ButtonType> alertConfirmation(AnchorPane anchorpane, String alertText, String alertType){
         //generate a stage window for the anchorpane parameter.
         Stage st = (Stage) anchorpane.getScene().getWindow();
-        //create an alert type of CONFIRMATION.
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "");
+        Alert alert;
+        switch(alertType){
+            case "information" : alert = new Alert(Alert.AlertType.INFORMATION, ""); break; 
+            case "warning": alert = new Alert(Alert.AlertType.WARNING, ""); break;          
+            default: alert = new Alert(Alert.AlertType.CONFIRMATION, "");       
+        }     
         //generate a MODAL box.
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.initOwner(st);

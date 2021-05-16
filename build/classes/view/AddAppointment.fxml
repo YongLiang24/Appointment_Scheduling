@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddAppointmentController">
+<AnchorPane id="AnchorPane" fx:id="AddAppointment_AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddAppointmentController">
    <children>
       <DatePicker fx:id="DatePickerSelect" editable="false" layoutX="300.0" layoutY="112.0" prefHeight="25.0" prefWidth="127.0" promptText="Select a date" />
       <TextField fx:id="Title" layoutX="133.0" layoutY="34.0" promptText="Title" />
@@ -22,7 +22,7 @@
       <Label layoutX="48.0" layoutY="76.0" text="Description:" />
       <Label layoutX="63.0" layoutY="116.0" text="Location:" />
       <Label layoutX="79.0" layoutY="159.0" text="Type:" />
-      <Label layoutX="300.0" layoutY="159.0" prefHeight="17.0" prefWidth="253.0" text="Eastern Time Select (8:00AM to 10:00PM):" />
+      <Label layoutX="300.0" layoutY="159.0" prefHeight="17.0" prefWidth="253.0" text="Office Hour EST (8:00AM to 10:00PM):" />
       <Label fx:id="StringStartTime" layoutX="479.0" layoutY="196.0" text=":" />
       <Label fx:id="StringEndTime" layoutX="480.0" layoutY="232.0" text=":" />
       <Label layoutX="240.0" layoutY="5.0" text="Create Appointment" />

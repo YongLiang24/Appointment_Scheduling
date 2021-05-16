@@ -40,6 +40,7 @@ public class LoginFXMLController implements Initializable {
     private String invalidInput="";//login invalid error message String
     private ObservableList<User> userList;//list of user objects
     public static String loggedUser;//store the logged in user for other classes to access.
+    public static User loggedUserObj;//store the user object
    
     /** This initialize method runs when a stage starts.it is also able to translate text to French.
      * @param url not currently using
@@ -54,6 +55,7 @@ public class LoginFXMLController implements Initializable {
         ZoneId localLocation = ZoneId.of(TimeZone.getDefault().getID());
         //convert the ZoneId type to a string
         UserLocation.setText(String.valueOf(localLocation));
+        
         
         //translate the login page to French when system locale is set to French
         if(Locale.getDefault().getLanguage().equals("fr")){
@@ -109,6 +111,7 @@ public class LoginFXMLController implements Initializable {
             //compare user inputs with query results
             if(user.getUsername().equals(inputName) && user.getPassword().equals(inputPass)){
                 loggedUser = user.getUsername();
+                loggedUserObj = user;
                 return true;
             }
         }
