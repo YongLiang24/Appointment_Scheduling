@@ -26,6 +26,7 @@ public interface CustomerDataAccess {
      * @return query result.
      */
     public int deleteCustomer(int customerID);
+    public int deleteCustomerAppointment(int customerID);
     
      /**
      * update customer method
@@ -39,6 +40,7 @@ public interface CustomerDataAccess {
      * @return query result.
      */
     public int updateCustomer(String Customer_Name, String Address, String Postal_Code, String Phone, String User, int Division_ID, int Customer_ID);
+    
     
     
 }

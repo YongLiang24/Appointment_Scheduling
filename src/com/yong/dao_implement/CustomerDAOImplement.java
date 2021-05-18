@@ -7,9 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
+import model.Appointment;
 
 /** Customer data access implementation class.
  * @author yongl
@@ -19,6 +22,7 @@ public class CustomerDAOImplement implements CustomerDataAccess{
     LocalDateTime dateTimeNow = LocalDateTime.now();
     Timestamp ts = Timestamp.valueOf(dateTimeNow);
     public static int hasCustomerCreated;
+    ObservableList<Appointment> aptList;
     
     /** This method gets all customers from database. 
      @return Returns an observableList containing all customer objects
@@ -81,6 +85,7 @@ public class CustomerDAOImplement implements CustomerDataAccess{
      */
     @Override
     public int deleteCustomer(int customerID) {
+        deleteCustomerAppointment(customerID); //delete appointments associate with a customer.
         int result=0;
         try {
             String sql ="delete from customers where Customer_ID =?";
@@ -93,6 +98,25 @@ public class CustomerDAOImplement implements CustomerDataAccess{
         }    
           return result;
     }
+    
+    @Override
+    public int deleteCustomerAppointment(int customerID) {
+        int result =0;
+        String sql ="delete from appointments where Customer_ID =?";
+        AppointDAOImplement appointList = new AppointDAOImplement();
+        aptList = appointList.getAllAppointments();
+        for(Appointment apt: aptList){
+            try {
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                ps.setInt(1, customerID);
+                result = ps.executeUpdate();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
      /**
      * update customer method
      * @param Customer_Name update customer name
@@ -124,6 +148,8 @@ public class CustomerDAOImplement implements CustomerDataAccess{
         }   
         return updateResult;
     }
+
+
     
     
 }
