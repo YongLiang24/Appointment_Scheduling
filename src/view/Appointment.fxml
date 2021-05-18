@@ -13,14 +13,14 @@
       <TableView fx:id="AptTableView" layoutY="6.0" prefHeight="269.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="Appointment_ID" prefWidth="47.99996781349182" text="Apt_ID" />
-          <TableColumn fx:id="Title" prefWidth="57.14285659790039" text="Title" />
-            <TableColumn fx:id="Description" prefWidth="57.7142333984375" text="Description" />
-            <TableColumn fx:id="Location" prefWidth="70.85708618164062" text="Location" />
+          <TableColumn fx:id="Title" prefWidth="47.428592681884766" text="Title" />
+            <TableColumn fx:id="Description" prefWidth="74.28567504882812" text="Description" />
+            <TableColumn fx:id="Location" prefWidth="64.00003051757812" text="Location" />
             <TableColumn fx:id="Contact" prefWidth="61.71421813964844" text="Contact" />
-            <TableColumn fx:id="Type" prefWidth="77.7142333984375" text="Type" />
-            <TableColumn fx:id="Start" prefWidth="68.00006103515625" text="Start DateTime" />
-            <TableColumn fx:id="End" text="End DateTime" />
-            <TableColumn fx:id="Customer_ID" prefWidth="75.0" text="Customer_ID" />
+            <TableColumn fx:id="Type" prefWidth="64.57135009765625" text="Type" />
+            <TableColumn fx:id="Start" prefWidth="93.14288330078125" text="Start DateTime" />
+            <TableColumn fx:id="End" prefWidth="90.85714721679688" text="End DateTime" />
+            <TableColumn fx:id="Customer_ID" prefWidth="54.28570556640625" text="Customer_ID" />
         </columns>
       </TableView>
       <RadioButton fx:id="FilterAll" layoutX="130.0" layoutY="289.0" mnemonicParsing="false" onAction="#filterAll" selected="true" text="All">

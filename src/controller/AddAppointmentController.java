@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import com.yong.dao_implement.AppointDAOImplement;
@@ -12,7 +7,6 @@ import com.yong.utility.AlertConfirmation;
 import com.yong.utility.StageSwitch;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -28,7 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -56,11 +49,7 @@ public class AddAppointmentController implements Initializable {
     @FXML private TextField Type;
     @FXML private ComboBox<Contact> ContactCombo;
     @FXML private ComboBox<Customer> CustomerCombo;
-    @FXML private Label StringStartTime;
-    @FXML private Label StringEndTime;
     @FXML private Label APTWarningMsg;
-
-    
     
     private User loggedUser;
     private ObservableList<Contact> contactList;
@@ -68,8 +57,17 @@ public class AddAppointmentController implements Initializable {
     private ObservableList<Appointment> appointmentList;
     @FXML private AnchorPane AddAppointment_AnchorPane;
     
+//    @FXML private Label ESTTime;
+//    @FXML private Label SysTime;
+    
+    @FXML private Label HourFrom;
+    @FXML private Label HourTo;
+    AlertConfirmation alert = new AlertConfirmation();
+    
     /**
      * Initializes the controller class.
+     * @param url URL
+     * @param rb RB
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -92,28 +90,48 @@ public class AddAppointmentController implements Initializable {
         ContactCombo.setItems(contactList);
         CustomerCombo.setItems(customerList);
         
-     
+        HourFrom.setText(String.valueOf(8+getZoneOffsetHour()));
+        HourTo.setText(String.valueOf(20+getZoneOffsetHour()));
+        
+//        SysTime.setText("Local Time: "+ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+//        ESTTime.setText("EST   Time: "+ZonedDateTime.now(ZoneId.of("America/New_York")).truncatedTo(ChronoUnit.SECONDS));
     }    
     
     @FXML
-    void createAppointmentBtn(ActionEvent event) { 
+    void createAppointmentBtn(ActionEvent event) throws IOException { 
         if(checkEmptyFields()){
             String title = Title.getText();
             String description = Description.getText();
             String location = Location.getText();
             String type = Type.getText();
+            String userName = loggedUser.getUsername();
             int userID = loggedUser.getUser_ID();
+            
             try{
-                ZonedDateTime startDateTime =convertAppointmentTime(DatePickerSelect, StartHour.getSelectionModel().getSelectedItem(), StartMinute.getSelectionModel().getSelectedItem());
-                ZonedDateTime endDateTime =convertAppointmentTime(DatePickerSelect, EndHour.getSelectionModel().getSelectedItem(), EndMinute.getSelectionModel().getSelectedItem());
+                LocalDateTime startTime =convertAppointmentTime(DatePickerSelect, StartHour.getSelectionModel().getSelectedItem(), StartMinute.getSelectionModel().getSelectedItem());
+                LocalDateTime endTime =convertAppointmentTime(DatePickerSelect, EndHour.getSelectionModel().getSelectedItem(), EndMinute.getSelectionModel().getSelectedItem());
+
                 int customerID = CustomerCombo.getSelectionModel().getSelectedItem().getCustomer_ID();
                 int contactID = ContactCombo.getSelectionModel().getSelectedItem().getContact_ID();
-                
-                
-                
+              
+                appointmentList = getAppointmentList();//get all appointments.
+                if(checkEmptyFields() && checkHourSelect() && checkTimeOverLap(appointmentList, startTime, endTime) && validateEndHour() && validateEndMinute()){
+                   AppointDAOImplement createApt = new AppointDAOImplement();
+                   int createResult =  createApt.createAppointment(title, description, location, type, startTime, endTime, userName, customerID, userID, contactID);
+                   System.out.println("created result: "+createResult);
+                   String alertMessage ="Appointment has successfully created!";       
+                    
+                   Optional<ButtonType> buttonType = alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "information");
+                   if(buttonType.get() == ButtonType.OK){
+                        goBackBtn(event);
+                   }                   
+                }else{
+                    String alertMessage ="An error has occurred, please check all fields, date and time."; 
+                    alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "information");
+                }         
              }
             catch(NullPointerException e){
-                APTWarningMsg.setText("Message: Please complete all boxes before submitting.");
+                APTWarningMsg.setText("Message: Please complete all fields and validate date & time before submitting.");
             }
         }else{APTWarningMsg.setText("Message: Please complete all fields before submitting.");}
        
@@ -128,10 +146,8 @@ public class AddAppointmentController implements Initializable {
     }
     
     @FXML
-    void selectStartHour(ActionEvent event){  
-        AlertConfirmation alert = new AlertConfirmation();
+    void selectStartHour(ActionEvent event){    
         try{
-            timeFormatter(StartHour, StartMinute, StringStartTime); //a customer hour minute formatter for the create appointment.  
             if(!validateEndHour()){
                 String alertMessage ="Starting hour must be earlier than or the same as the ending hour.";       
                 alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "information");            
@@ -146,11 +162,8 @@ public class AddAppointmentController implements Initializable {
     }
 
     @FXML
-    void selectStartMinute(ActionEvent event){
-        
-        timeFormatter(StartHour, StartMinute, StringStartTime); //a customer hour minute formatter for the create appointment.
+    void selectStartMinute(ActionEvent event){  
         try{
-            AlertConfirmation alert = new AlertConfirmation(); 
             if(!validateEndMinute()){
                 String alertMessage ="Starting minute must be earlier than or the same as the ending minute.";       
                 alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "information");
@@ -161,9 +174,7 @@ public class AddAppointmentController implements Initializable {
     }
     
     @FXML
-    void selectEndHour(ActionEvent event){
-        AlertConfirmation alert = new AlertConfirmation(); 
-        timeFormatter(EndHour, EndMinute, StringEndTime); //a customer hour minute formatter for the create appointment.
+    void selectEndHour(ActionEvent event){ 
         try{ 
             if(!validateEndHour()){
             String alertMessage ="Starting hour must be earlier than or the same as the ending hour.";       
@@ -180,25 +191,13 @@ public class AddAppointmentController implements Initializable {
 
     @FXML
     void selectEndMinute(ActionEvent event){
-        timeFormatter(EndHour, EndMinute, StringEndTime); //a customer hour minute formatter for the create appointment. 
         try{
-            AlertConfirmation alert = new AlertConfirmation(); 
             if(!validateEndMinute()){
                 String alertMessage ="Starting minute must be earlier than or the same as the ending minute.";       
                 alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "information");
             }
         }catch(NullPointerException e){
             
-        }
-    }
-    
-    private void timeFormatter(ComboBox<Integer> hour, ComboBox <Integer>min, Label timeTxt)throws NullPointerException{
-        if(min.getSelectionModel().getSelectedItem() != null && hour.getSelectionModel().getSelectedItem() != null){
-            if(min.getSelectionModel().getSelectedItem()<10){
-                timeTxt.setText(String.valueOf("["+hour.getSelectionModel().getSelectedItem())+" : 0"+String.valueOf(min.getSelectionModel().getSelectedItem())+"]");
-            }else{
-                timeTxt.setText(String.valueOf("["+hour.getSelectionModel().getSelectedItem())+" : "+String.valueOf(min.getSelectionModel().getSelectedItem())+"]");
-            } 
         }
     }
     
@@ -213,11 +212,57 @@ public class AddAppointmentController implements Initializable {
     
     private boolean validateEndMinute(){
         try{
-        if(StartHour.getSelectionModel().getSelectedItem() == EndHour.getSelectionModel().getSelectedItem() && StartMinute.getSelectionModel().getSelectedItem() >= EndMinute.getSelectionModel().getSelectedItem()){         
+        if(StartHour.getSelectionModel().getSelectedItem() == EndHour.getSelectionModel().getSelectedItem() && StartMinute.getSelectionModel().getSelectedItem() >= EndMinute.getSelectionModel().getSelectedItem()){  
+            APTWarningMsg.setText("Message: Ending Minute must be later than the starting minute.");
             return false;
         }
         }catch(NullPointerException e){}
         return true;
+    }
+    
+
+    LocalDateTime convertAppointmentTime(DatePicker datePicker, int hour, int minute){          
+        LocalDate getDate = datePicker.getValue();
+        LocalTime getTime =  LocalTime.of(hour, minute);
+        LocalDateTime getDateTime = LocalDateTime.of(getDate, getTime);  
+        return getDateTime;
+    }
+    
+    private boolean checkEmptyFields(){
+        return !(Title.getText().isEmpty() || Description.getText().isEmpty() || Location.getText().isEmpty() || Type.getText().isEmpty());
+    }
+    
+    boolean checkHourSelect(){
+         return !(StartHour.getSelectionModel().getSelectedItem()<(8+getZoneOffsetHour()) || StartHour.getSelectionModel().getSelectedItem() >(20+getZoneOffsetHour()) || EndHour.getSelectionModel().getSelectedItem()<(8+getZoneOffsetHour()) || EndHour.getSelectionModel().getSelectedItem() >(20+getZoneOffsetHour()));
+    }
+    
+    boolean checkTimeOverLap(ObservableList<Appointment> aptList, LocalDateTime start, LocalDateTime end){
+        String alertMessage ="The selected time is overlapping with another appointment. Please select another time.";
+        for(Appointment apt: aptList){
+            LocalDateTime storedStart = apt.getStart().toLocalDateTime();
+            LocalDateTime storedEnd = apt.getEnd().toLocalDateTime();
+            System.out.println("DB to local: "+storedStart);
+            if(start.isEqual(storedStart) || start.isEqual(storedEnd) || end.isEqual(storedStart) || end.isEqual(storedEnd)){
+                alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "warning");
+                return false;
+            }else if((start.isAfter(storedStart)&& start.isBefore(storedEnd)) || (end.isAfter(storedStart)&& end.isBefore(storedEnd))){
+                alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "warning");
+                return false;
+            }else if(start.isBefore(storedStart) && end.isAfter(storedEnd)){
+                alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "warning");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /** This method dynamically calculates the hour difference from a systemDefault zone to EST office hour. 
+     @return the hour difference.*/
+    int getZoneOffsetHour(){
+        ZonedDateTime sysZoneTime = ZonedDateTime.now();
+        ZoneId zoneEST = ZoneId.of("America/New_York");
+        ZonedDateTime ESTZoneTime = sysZoneTime.withZoneSameInstant(zoneEST);   
+        return (sysZoneTime.getOffset().getTotalSeconds() - ESTZoneTime.getOffset().getTotalSeconds())/3600;
     }
     
     ObservableList<Contact> getContactList(){
@@ -234,57 +279,4 @@ public class AddAppointmentController implements Initializable {
         AppointDAOImplement appointObj = new AppointDAOImplement();
         return appointObj.getAllAppointments();
     }
-
-    ZonedDateTime convertAppointmentTime(DatePicker datePicker, int hour, int minute){          
-        LocalDate getDate = datePicker.getValue();
-        LocalTime getTime =  LocalTime.of(hour, minute);
-        LocalDateTime getDateTime = LocalDateTime.of(getDate, getTime);            
-        ZoneId zoneEST = ZoneId.of("America/New_York");
-        ZonedDateTime ESTDateTime = ZonedDateTime.of(getDateTime, zoneEST);
-        //ZoneId zoneUTC = ZoneId.of("UTC"); 
-        //ZonedDateTime UTCTime = ZonedDateTime.ofInstant(ESTDateTime.toInstant(), zoneUTC); 
-        //System.out.println("EST: "+ESTDateTime+" UTC: "+UTCTime);
-        return ESTDateTime;
-    }
-    
-    private boolean checkEmptyFields(){
-        return !(Title.getText().isEmpty() || Description.getText().isEmpty() || Location.getText().isEmpty() || Type.getText().isEmpty());
-    }
-    
-    boolean checkHourSelect(){
-         return !(StartHour.getSelectionModel().getSelectedItem()<8 || StartHour.getSelectionModel().getSelectedItem() >20 || EndHour.getSelectionModel().getSelectedItem()<8 || EndHour.getSelectionModel().getSelectedItem() >20);
-    }
-    
-    boolean checkTimeOverLap(ObservableList<Appointment> aptList, ZonedDateTime start, ZonedDateTime end){
-        ZoneId zoneEST = ZoneId.of("America/New_York");
-        ZoneId zoneUTC = ZoneId.of("UTC");
-        for(Appointment apt: aptList){
-            //set start/end timestamp with zone UTC
-            Instant startDateTime = apt.getStart().toInstant();
-            ZonedDateTime startUTC = startDateTime.atZone(zoneUTC);
-            Instant endDateTime = apt.getEnd().toInstant();
-            ZonedDateTime endUTC = endDateTime.atZone(zoneUTC);
-            //convert UTC to EST timezone
-            ZonedDateTime startEST = ZonedDateTime.ofInstant(startUTC.toInstant(), zoneEST);
-            ZonedDateTime endEST = ZonedDateTime.ofInstant(endUTC.toInstant(), zoneEST);
-            //check valid time slot
-            if(start.isAfter(startEST) && start.isBefore(endEST)){ 
-                return false;
-            }
-            else if(start.isEqual(startEST) || start.isEqual(endEST)){
-                return false;
-            }
-            else if(end.isAfter(startEST) && end.isBefore(endEST)){
-                return false;
-            }
-            else if(end.isEqual(startEST) || end.isEqual(endEST)){
-                return false;
-            }
-            else if(start.isBefore(startEST) && end.isAfter(endEST)){
-                return false;
-            }     
-        }
-        return true;
-    }
-    
 }

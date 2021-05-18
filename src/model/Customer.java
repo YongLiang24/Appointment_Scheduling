@@ -94,7 +94,12 @@ public class Customer {
         return Country_ID;
     }
     
-    
+    /** override the default toString to display customer name for the combo box
+     * @return customer name*/
+    @Override
+    public String toString(){
+        return Name+" - ID: "+Customer_ID;
+    }
     
     
 }

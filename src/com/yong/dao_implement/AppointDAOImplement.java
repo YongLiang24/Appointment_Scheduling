@@ -9,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import com.yong.functional_interface.ConvertToTimestamp;
 
 /**
  * implement data access for appointment interface.
@@ -43,5 +45,58 @@ public class AppointDAOImplement implements AppointmentDataAccess{
         }       
         return appointList;
     }
+    /** Create an appointment method.
+     * @param title title
+     * @param description description
+     * @param location location
+     * @param type type
+     * @param startTime startTime
+     * @param endTime endTime
+     * @param user created by
+     * @param customer_id customer id
+     * @param user_id user id
+     * @param contact_id contact id
+     * @return  the result 1 or 0;*/
+    @Override
+    public int createAppointment(String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int user_id, int contact_id){
+        int returnResult=0;
+        //using lambda expression to get the current time as timestamp object.
+        ConvertToTimestamp currentStamp = ()-> Timestamp.valueOf(LocalDateTime.now());
+        Timestamp localNow =currentStamp.getTimestamp();
+        
+        //convert the LocalDateTime to Timestamp using Lambda
+        ConvertToTimestamp startStamp = ()-> Timestamp.valueOf(startTime);
+        Timestamp start =startStamp.getTimestamp();
+        
+        ConvertToTimestamp endStamp = ()-> Timestamp.valueOf(endTime);
+        Timestamp end = endStamp.getTimestamp();
+        
+        try {
+            String sql="insert into appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Customer_ID, User_ID, Contact_ID) values (?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, location);
+            ps.setString(4, type);
+            ps.setTimestamp(5, start);
+            ps.setTimestamp(6, end);
+            ps.setTimestamp(7, localNow);
+            ps.setString(8, user);
+            ps.setInt(9, customer_id);
+            ps.setInt(10, user_id);
+            ps.setInt(11, contact_id);
+            returnResult = ps.executeUpdate();      
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return returnResult;
+    }
+
+
+
+
+    
+
+
     
 }

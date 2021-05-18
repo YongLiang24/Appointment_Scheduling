@@ -27,5 +27,12 @@ public class Contact {
         return Email;
     }
     
+    /** override the default toString to display contact name for the combo box
+     * @return contact name*/
+    @Override
+    public String toString(){
+        return Contact_Name+" - ID: "+Contact_ID;
+    }
+    
     
 }
