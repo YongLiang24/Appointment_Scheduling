@@ -52,7 +52,8 @@ public class UpdateCustomerController implements Initializable {
         UpdatePostal.setText(CustomerFXMLController.updateCustomerObj.getPostal_Code());
         UpdatePhone.setText(CustomerFXMLController.updateCustomerObj.getPhone());
     }    
-    
+    /** this method gets the user selected country. 
+     @param event event.*/
     @FXML
     void updateSelectCountry(ActionEvent event) {
         //create a filtered division list using country ID and set it to the division combo box.
@@ -60,7 +61,8 @@ public class UpdateCustomerController implements Initializable {
         UpdateDivisionCombo.setItems(divisionsByCountryList);
 
     }
-
+    /** this method gets the user selected division. 
+     @param event event. */
     @FXML
     void updateSelectDivision(ActionEvent event) {
         try{
@@ -104,7 +106,9 @@ public class UpdateCustomerController implements Initializable {
         }
         return null;     
     }
-    
+    /** this method takes the user back to the customer main page. 
+     @param event event
+     @exception IOException .*/
     @FXML
     void cancelBtn(ActionEvent event) throws IOException {
         //call the switchStage utility method
@@ -113,7 +117,8 @@ public class UpdateCustomerController implements Initializable {
         newStage.switchStage(viewFilePath, event);
 
     }
-
+    /** this method confirms the customer update.
+     @param event event.*/
     @FXML
     void updateBtn(ActionEvent event) {
         if(fillTextFields()){
@@ -137,7 +142,8 @@ public class UpdateCustomerController implements Initializable {
         }
 
     }
-    
+    /** this method validates any empty entries from user. 
+     @return Boolean*/
     private boolean fillTextFields(){
         return !(UpdateName.getText().isEmpty() || UpdateAddress.getText().isEmpty() || UpdatePostal.getText().isEmpty() || UpdatePhone.getText().isEmpty());
     }

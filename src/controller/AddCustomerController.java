@@ -41,7 +41,9 @@ public class AddCustomerController implements Initializable {
         SetComboBox setCountryCombo = cb -> cb.setItems(CustomerFXMLController.CountryList);
         setCountryCombo.setListToCombo(Country_Combo);
     }    
-    
+    /** this method uses Lambda Expression to set divisionList to the division combo box.
+     adds divisions to the combo box based on the country select.
+     @param event event*/
     @FXML
     void selectCountry(ActionEvent event) {
         divisionList.clear();//empty the list each time a different country is selected.
@@ -57,14 +59,16 @@ public class AddCustomerController implements Initializable {
        Division_Combo.setDisable(false);//enable the division combo box once a country is selected.
         
     }
-
+    /** this method gets selected the division id. 
+     @param event event*/
     @FXML
     void selectDivision(ActionEvent event) {
         if(Division_Combo.getSelectionModel().getSelectedItem() != null){
             DivisionID = Division_Combo.getSelectionModel().getSelectedItem().getDivision_ID();  
         }    
     }
-    
+    /** this method validates user inputs before creating a customer. 
+     @param event event*/
     @FXML
     void createCustomerBtn(ActionEvent event) {
         if(hasFieldsFilled()){
@@ -79,7 +83,9 @@ public class AddCustomerController implements Initializable {
         }
         }
     }
-
+    /** this method returns user to the customer main page. 
+     @exception IOException stage switch
+     @param event event*/
     @FXML
     void returnBtn(ActionEvent event) throws IOException {
         //call the switchStage utility method
@@ -88,7 +94,8 @@ public class AddCustomerController implements Initializable {
         newStage.switchStage(viewFilePath, event);
 
     }
-    
+    /** this method validates any empty fields. 
+     @return returns a Boolean*/
     private boolean hasFieldsFilled(){
         if(CustomerName.getText().isEmpty() || Address.getText().isEmpty() || PostalCode.getText().isEmpty() || PhoneNumber.getText().isEmpty() || Division_Combo.getSelectionModel().getSelectedItem()== null || Country_Combo.getSelectionModel().getSelectedItem() == null){
             WarningMsg.setText("Message: All fields must be filled.");
@@ -96,7 +103,7 @@ public class AddCustomerController implements Initializable {
         }
         return true;
     }
-    
+    /** this method empties the form after user has created a customer. */
     private void emptyFormInputs(){
         CustomerName.clear(); 
         Address.clear(); 

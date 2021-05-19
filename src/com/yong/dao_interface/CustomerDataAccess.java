@@ -39,8 +39,6 @@ public interface CustomerDataAccess {
      * @param Customer_ID match the customer ID
      * @return query result.
      */
-    public int updateCustomer(String Customer_Name, String Address, String Postal_Code, String Phone, String User, int Division_ID, int Customer_ID);
-    
-    
+    public int updateCustomer(String Customer_Name, String Address, String Postal_Code, String Phone, String User, int Division_ID, int Customer_ID);   
     
 }

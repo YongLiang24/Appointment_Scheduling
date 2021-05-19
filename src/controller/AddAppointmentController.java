@@ -57,9 +57,6 @@ public class AddAppointmentController implements Initializable {
     private ObservableList<Appointment> appointmentList;
     @FXML private AnchorPane AddAppointment_AnchorPane;
     
-//    @FXML private Label ESTTime;
-//    @FXML private Label SysTime;
-    
     @FXML private Label HourFrom;
     @FXML private Label HourTo;
     AlertConfirmation alert = new AlertConfirmation();
@@ -96,7 +93,10 @@ public class AddAppointmentController implements Initializable {
 //        SysTime.setText("Local Time: "+ZonedDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 //        ESTTime.setText("EST   Time: "+ZonedDateTime.now(ZoneId.of("America/New_York")).truncatedTo(ChronoUnit.SECONDS));
     }    
-    
+    /** This method creates an appointment and validates all fields and dates.
+     it pops a warning/message box to inform user whether an appointment has created or not.
+     @param event event object.
+     @exception IOException for stage switch*/
     @FXML
     void createAppointmentBtn(ActionEvent event) throws IOException { 
         if(checkEmptyFields()){
@@ -136,7 +136,9 @@ public class AddAppointmentController implements Initializable {
         }else{APTWarningMsg.setText("Message: Please complete all fields before submitting.");}
        
     }
-
+    /** This method takes the user back to the main appointment page. 
+     @param event event object.
+     @exception IOException stage switch*/
     @FXML
     void goBackBtn(ActionEvent event) throws IOException {
         //call the switchStage utility method
@@ -144,7 +146,8 @@ public class AddAppointmentController implements Initializable {
         StageSwitch newStage = new StageSwitch();
         newStage.switchStage(viewFilePath, event);
     }
-    
+    /** This method validates the starting hour, starting hour must within office hour and must be earlier than the ending hour. 
+     @param event event object.*/
     @FXML
     void selectStartHour(ActionEvent event){    
         try{
@@ -160,7 +163,8 @@ public class AddAppointmentController implements Initializable {
         catch(NullPointerException e){
         }
     }
-
+    /** this method validates the starting minute select. 
+     @param event event object.*/
     @FXML
     void selectStartMinute(ActionEvent event){  
         try{
@@ -172,7 +176,8 @@ public class AddAppointmentController implements Initializable {
             
         }
     }
-    
+    /** this method validates the ending hour select. 
+     @param event event object.*/
     @FXML
     void selectEndHour(ActionEvent event){ 
         try{ 
@@ -188,7 +193,8 @@ public class AddAppointmentController implements Initializable {
         catch(NullPointerException e){
         }
     }
-
+    /** this method validates the ending minutes select. 
+     @param event event object.*/
     @FXML
     void selectEndMinute(ActionEvent event){
         try{
@@ -200,7 +206,8 @@ public class AddAppointmentController implements Initializable {
             
         }
     }
-    
+    /** this method validates hour select for starting time must be earlier than ending time.
+     @return Boolean Boolean */
     private boolean validateEndHour(){
         try{
         if(StartHour.getSelectionModel().getSelectedItem() > EndHour.getSelectionModel().getSelectedItem()){
@@ -209,7 +216,8 @@ public class AddAppointmentController implements Initializable {
         }catch(NullPointerException e){}
       return true;
     }
-    
+    /** this method validates minutes select for starting time must be earlier than ending time.
+     @return Boolean Boolean */
     private boolean validateEndMinute(){
         try{
         if(StartHour.getSelectionModel().getSelectedItem() == EndHour.getSelectionModel().getSelectedItem() && StartMinute.getSelectionModel().getSelectedItem() >= EndMinute.getSelectionModel().getSelectedItem()){  
@@ -220,22 +228,32 @@ public class AddAppointmentController implements Initializable {
         return true;
     }
     
-
+    /** this method takes Datepicker, user select hour and minutes and convert them into a LocalDateTime object.
+     @return LocalDateTime LocalDateTime object. 
+     @param datePicker date picker.
+     @param hour hour
+     @param minute minute*/
     LocalDateTime convertAppointmentTime(DatePicker datePicker, int hour, int minute){          
         LocalDate getDate = datePicker.getValue();
         LocalTime getTime =  LocalTime.of(hour, minute);
         LocalDateTime getDateTime = LocalDateTime.of(getDate, getTime);  
         return getDateTime;
     }
-    
+    /** this method validates any empty fields when submitting. 
+     @return Boolean Boolean.*/
     private boolean checkEmptyFields(){
         return !(Title.getText().isEmpty() || Description.getText().isEmpty() || Location.getText().isEmpty() || Type.getText().isEmpty());
     }
-    
+    /** this method validates hour select within office hour after time offset from user's current timezone. 
+     @return Boolean Boolean*/
     boolean checkHourSelect(){
          return !(StartHour.getSelectionModel().getSelectedItem()<(8+getZoneOffsetHour()) || StartHour.getSelectionModel().getSelectedItem() >(20+getZoneOffsetHour()) || EndHour.getSelectionModel().getSelectedItem()<(8+getZoneOffsetHour()) || EndHour.getSelectionModel().getSelectedItem() >(20+getZoneOffsetHour()));
     }
-    
+    /** this method check for any DateTime overlaps.
+     @param aptList database appointment list
+     @param start local start time object
+     @param end local end time object.
+     @return Boolean */
     boolean checkTimeOverLap(ObservableList<Appointment> aptList, LocalDateTime start, LocalDateTime end){
         String alertMessage ="The selected time is overlapping with another appointment. Please select another time.";
         for(Appointment apt: aptList){
@@ -264,17 +282,20 @@ public class AddAppointmentController implements Initializable {
         ZonedDateTime ESTZoneTime = sysZoneTime.withZoneSameInstant(zoneEST);   
         return (sysZoneTime.getOffset().getTotalSeconds() - ESTZoneTime.getOffset().getTotalSeconds())/3600;
     }
-    
+    /** this method returns all contacts.
+     @return list of contacts*/
     ObservableList<Contact> getContactList(){
         ContactDAOImplement contactObj = new ContactDAOImplement();
         return contactObj.getAllContacts();     
     }
-    
+    /** this method returns all customers. 
+     @return a list of customers*/
     ObservableList<Customer> getCustomerList(){
         CustomerDAOImplement customerObj = new CustomerDAOImplement();
         return customerObj.getAllCustomers();
     }
-    
+    /** this method returns all appointments. 
+     @return a list of appointments.*/
     ObservableList<Appointment> getAppointmentList(){
         AppointDAOImplement appointObj = new AppointDAOImplement();
         return appointObj.getAllAppointments();

@@ -14,6 +14,7 @@ public class AlertConfirmation {
     /** This method returns an Optional ButtonType based on user's selection. 
      * @param anchorpane Accepts an AnchorPane from scene builder.
      * @param alertText Accepts a custom text for the confirmation box description.
+     * @param alertType a type of alert.
      * @return  An Optional ButtonType*/
     public Optional<ButtonType> alertConfirmation(AnchorPane anchorpane, String alertText, String alertType){
         //generate a stage window for the anchorpane parameter.

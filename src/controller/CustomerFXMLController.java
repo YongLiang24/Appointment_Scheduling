@@ -72,7 +72,8 @@ public class CustomerFXMLController implements Initializable {
         listCustomer=tableview.getSelectionModel().getSelectedItems();
     }
     /** This action event will switch to a customer creation page scene. 
-     @param event event reference.*/
+     @param event event reference.
+     @exception IOException stage switch*/
     @FXML
     void createCustomer(ActionEvent event) throws IOException {
         //Create a stage switch utility class reference and call its method.
@@ -80,6 +81,8 @@ public class CustomerFXMLController implements Initializable {
         StageSwitch newStage = new StageSwitch();
         newStage.switchStage(viewFilePath, event);    
     }
+    /** takes the user to the update customer form. 
+     @param event event.*/
     @FXML
     void updateCustomer(ActionEvent event) {
         
@@ -96,7 +99,8 @@ public class CustomerFXMLController implements Initializable {
         } 
 
     }
-    
+    /** this method deletes a selected customer, all appointments associate with the customer are also deleted. 
+     @param event event*/
     @FXML
     void deleteCustomer(ActionEvent event) {
         int deleteResult=0;
@@ -186,7 +190,7 @@ public class CustomerFXMLController implements Initializable {
         Division.setCellValueFactory(new PropertyValueFactory<>("Division"));
         Country.setCellValueFactory(new PropertyValueFactory<>("Country")); 
     }  
-    
+    /** this method sets a list of customers to the table view. */
     private void setCustomersToTableView(){
         //load customer data from database
         CustomerDAOImplement getAllCustomers = new CustomerDAOImplement();
@@ -196,7 +200,9 @@ public class CustomerFXMLController implements Initializable {
          //call the set tableview method to set data into the table view using CustomerDivisionList.
         setTableView(CustomerDivisionList);
     }
-    
+    /** this method takes user to the main appointment page. 
+     @exception IOException stage switch
+     @param event event*/
     @FXML
     void getAppointments(ActionEvent event) throws IOException {
         String viewFilePath ="/view/Appointment.fxml";

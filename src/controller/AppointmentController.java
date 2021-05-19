@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import model.Appointment;
 import java.sql.Timestamp;
@@ -31,10 +30,6 @@ public class AppointmentController implements Initializable {
     
     ObservableList<Appointment> aptContactList = FXCollections.observableArrayList();
     ObservableList<Appointment> filteredAptList = FXCollections.observableArrayList();
-   
-    @FXML private RadioButton FilterAll;
-    @FXML private RadioButton FilterMonthly;
-    @FXML private RadioButton FilterWeekly;
     
     @FXML private TableView<Appointment> AptTableView;
     @FXML private TableColumn<Appointment, Integer> Appointment_ID;
@@ -57,22 +52,25 @@ public class AppointmentController implements Initializable {
        setToTableView(aptContactList);
 
     }    
-    
-
+    /** this method returns user to the customer main page. 
+     @exception IOException stage switch
+     @param event event*/
     @FXML
     void getBackToCustomer(ActionEvent event) throws IOException {
         String viewFilePath ="/view/CustomerFXML.fxml";
         StageSwitch newStage = new StageSwitch();
         newStage.switchStage(viewFilePath, event); 
-
     }
-    
+    /** this method displays all appointments with contacts. 
+     @param event event.*/
     @FXML
     void filterAll(ActionEvent event) {
         aptContactList = getAptContactList();//get a list of appointments with contact names.
         setToTableView(aptContactList);
     }
-
+    /** this method utilizes Lambda Stream to filters appointments and display by current month.
+     * it gets call when selects the Month radio button.
+     @param event event.*/
     @FXML
     void filterMonthly(ActionEvent event) {
         aptContactList = getAptContactList();//get an updated list of appointments with contact names.
@@ -82,7 +80,8 @@ public class AppointmentController implements Initializable {
         filterMonth.forEach(apt-> filterMonthList.add(apt));
         setToTableView(filterMonthList);
     }
-
+    /** this method displays a filtered appointment list by week, it uses switch statements to determine the current week from the current day. 
+     @param event event*/
     @FXML
     void filterWeekly(ActionEvent event) {
         aptContactList = getAptContactList();//get the most updated list of appointments with contact names.
@@ -115,7 +114,11 @@ public class AppointmentController implements Initializable {
         }     
         setToTableView(filterWeekList);   
     }
-    
+    /** this is a utility method that filters the week based on int plusDays minusDays. 
+     @param appointList appointment list.
+     @param WeekList a filtered week list
+     @param plusDays plus days from today
+     @param minusDays minus the days from today. */
     private void filterWeek(ObservableList<Appointment> appointList, ObservableList<Appointment> WeekList, int plusDays, int minusDays){
         for(Appointment apt: appointList){
                     LocalDate startDate = LocalDate.from(apt.getStart().toLocalDateTime());
@@ -126,7 +129,8 @@ public class AppointmentController implements Initializable {
                     }
                 } 
     }
-    
+    /** get a list of appointments with contact information. 
+     @return a list of appointments.*/
     private ObservableList<Appointment> getAptContactList(){    
         ObservableList<Appointment> aptList = FXCollections.observableArrayList();
         ObservableList<Contact> contactList = FXCollections.observableArrayList();
@@ -162,7 +166,9 @@ public class AppointmentController implements Initializable {
         End.setCellValueFactory(new PropertyValueFactory<>("End"));
         Customer_ID.setCellValueFactory(new PropertyValueFactory<>("Customer_ID")); 
     }
-    
+    /** this method takes the user to an appointment creation form. 
+     @param event event
+     @exception IOException .*/
     @FXML
     void createAppointment(ActionEvent event) throws IOException {
         String viewFilePath ="/view/AddAppointment.fxml";
