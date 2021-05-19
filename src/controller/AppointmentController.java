@@ -16,6 +16,8 @@ import javafx.scene.control.TableColumn;
 import model.Appointment;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.stream.Stream;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Contact;
@@ -73,19 +75,56 @@ public class AppointmentController implements Initializable {
 
     @FXML
     void filterMonthly(ActionEvent event) {
-        for(Appointment apt: aptContactList){
-            System.out.println(apt.getStart().toLocalDateTime().getMonth().equals(LocalDate.now().getMonth()));
-            
-            System.out.println(apt.getStart().toLocalDateTime().getDayOfWeek());
-        }
-        
-
+        aptContactList = getAptContactList();//get an updated list of appointments with contact names.
+        ObservableList<Appointment> filterMonthList= FXCollections.observableArrayList();
+        //Use Lambda Stream to filter the current month.
+        Stream<Appointment> filterMonth = aptContactList.stream().filter(apt -> apt.getStart().toLocalDateTime().getMonth().equals(LocalDate.now().getMonth()));
+        filterMonth.forEach(apt-> filterMonthList.add(apt));
+        setToTableView(filterMonthList);
     }
 
     @FXML
     void filterWeekly(ActionEvent event) {
-        System.out.println("Week");
+        aptContactList = getAptContactList();//get the most updated list of appointments with contact names.
+        ObservableList<Appointment> filterWeekList= FXCollections.observableArrayList();
         //use switch statement to determine the week from current date.
+        switch(LocalDateTime.now().getDayOfWeek()){
+            case SUNDAY:
+                //this method takes two lists, a plusday and a minusday int from current date
+                //adds a filtered list to the tableview within a week from the current date.
+                filterWeek(aptContactList, filterWeekList, 0, 7);
+                break;     
+            case MONDAY: 
+                filterWeek(aptContactList, filterWeekList, 6, 2); 
+                break;
+            case TUESDAY: 
+                filterWeek(aptContactList, filterWeekList, 5, 3);
+                break;    
+            case WEDNESDAY:
+                filterWeek(aptContactList, filterWeekList, 4, 4);
+                break;    
+            case THURSDAY:
+                filterWeek(aptContactList, filterWeekList, 3, 5);
+                break;              
+            case FRIDAY:
+                filterWeek(aptContactList, filterWeekList, 2, 6);
+                break;              
+            case SATURDAY:
+                filterWeek(aptContactList, filterWeekList, 1, 7);
+                break;        
+        }     
+        setToTableView(filterWeekList);   
+    }
+    
+    private void filterWeek(ObservableList<Appointment> appointList, ObservableList<Appointment> WeekList, int plusDays, int minusDays){
+        for(Appointment apt: appointList){
+                    LocalDate startDate = LocalDate.from(apt.getStart().toLocalDateTime());
+                    if(startDate.isEqual(LocalDate.now())){
+                        WeekList.add(apt);
+                    }else if(startDate.isBefore(LocalDate.now().plusDays(plusDays)) && startDate.isAfter(LocalDate.now().minusDays(minusDays))){
+                        WeekList.add(apt);
+                    }
+                } 
     }
     
     private ObservableList<Appointment> getAptContactList(){    
