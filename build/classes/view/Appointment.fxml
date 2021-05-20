@@ -8,7 +8,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentController">
+<AnchorPane id="AnchorPane" fx:id="aptAnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentController">
    <children>
       <TableView fx:id="AptTableView" layoutY="6.0" prefHeight="269.0" prefWidth="600.0">
         <columns>
@@ -30,11 +30,11 @@
       <RadioButton fx:id="FilterMonthly" layoutX="181.0" layoutY="289.0" mnemonicParsing="false" onAction="#filterMonthly" text="Monthly" toggleGroup="$filterGroup" />
       <RadioButton fx:id="FilterWeekly" layoutX="257.0" layoutY="289.0" mnemonicParsing="false" onAction="#filterWeekly" text="Weekly" toggleGroup="$filterGroup" />
       <Button layoutX="130.0" layoutY="328.0" mnemonicParsing="false" onAction="#createAppointment" text="Create" />
-      <Button layoutX="202.0" layoutY="328.0" mnemonicParsing="false" text="Update" />
-      <Button layoutX="275.0" layoutY="328.0" mnemonicParsing="false" text="Delete" />
+      <Button layoutX="202.0" layoutY="328.0" mnemonicParsing="false" onAction="#updateAppointment" text="Update" />
+      <Button layoutX="275.0" layoutY="328.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete" />
       <Button layoutX="433.0" layoutY="328.0" mnemonicParsing="false" onAction="#getBackToCustomer" text="Go Back" />
       <Label layoutX="39.0" layoutY="332.0" text="Appointments:" />
-      <Label layoutX="67.0" layoutY="360.0" text="Message:" />
+      <Label fx:id="aptMainMsg" layoutX="67.0" layoutY="360.0" text="Message:" />
       <Label layoutX="78.0" layoutY="289.0" text="Filter By:" />
    </children>
 </AnchorPane>

@@ -147,7 +147,21 @@ public class CustomerDAOImplement implements CustomerDataAccess{
         return updateResult;
     }
 
-
-    
-    
+    @Override
+    public Customer getCustomerByID(int customerID) {  
+        Customer customer=null;
+        try {
+            String sql = "select * from customers where Customer_ID ="+customerID;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+            customer = new Customer(rs.getInt("Customer_ID"),rs.getString("Customer_Name"));
+            }
+        } catch (SQLException ex) {
+            ex.getStackTrace();
+        }
+        
+        return customer;
+    } 
 }
+

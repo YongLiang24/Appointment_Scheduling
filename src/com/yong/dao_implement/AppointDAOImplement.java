@@ -91,12 +91,23 @@ public class AppointDAOImplement implements AppointmentDataAccess{
         }
         return returnResult;
     }
-
-
-
-
-    
-
+    /** delete a selected appointment. 
+    @param appointmentID appointment id.
+     * @return  a result of 1 or 0 */
+    @Override
+    public int deleteAppointment(int appointmentID) {
+        int result=0;
+        try {
+            String sql ="delete from appointments where Appointment_ID =?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, appointmentID);
+            result = ps.executeUpdate();
+          
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }    
+          return result;
+    }
 
     
 }

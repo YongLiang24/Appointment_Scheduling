@@ -2,6 +2,7 @@ package controller;
 
 import com.yong.dao_implement.AppointDAOImplement;
 import com.yong.dao_implement.ContactDAOImplement;
+import com.yong.utility.AlertConfirmation;
 import com.yong.utility.StageSwitch;
 import java.io.IOException;
 import java.net.URL;
@@ -16,9 +17,15 @@ import model.Appointment;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.stream.Stream;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import model.Contact;
 
 /**
@@ -41,6 +48,13 @@ public class AppointmentController implements Initializable {
     @FXML private TableColumn<Appointment, Timestamp> Start;
     @FXML private TableColumn<Appointment, Timestamp> End;
     @FXML private TableColumn<Appointment, Integer> Customer_ID;
+    
+    @FXML private Label aptMainMsg;
+    @FXML private AnchorPane aptAnchorPane;
+    @FXML private ToggleGroup filterGroup;
+    @FXML private RadioButton FilterAll;
+    
+    public static Appointment selectedAppointment;
     /**
      * Initializes the controller class.
      * @param url URL
@@ -175,6 +189,51 @@ public class AppointmentController implements Initializable {
         StageSwitch newStage = new StageSwitch();
         newStage.switchStage(viewFilePath, event); 
 
+    }
+    /** this method deletes a selected appointment. 
+     @param event event. object */
+    @FXML
+    void deleteAppointment(ActionEvent event) {
+        AlertConfirmation alert = new AlertConfirmation();//pop a confirmation box.
+        Optional<ButtonType> buttonType = null;
+        AppointDAOImplement appointObj = new AppointDAOImplement();
+        //try and catch to make sure an appointment is selected before the delete event.
+        try{
+            ObservableList<Appointment> tableviewAppointments = AptTableView.getSelectionModel().getSelectedItems();
+            selectedAppointment = tableviewAppointments.get(0);
+            aptMainMsg.setText("Message:");
+            String alertMessage ="Are you sure to delete this appointment?"+" Appointment ID: "+selectedAppointment.getAppointment_ID()+", Type: "+selectedAppointment.getType();
+            buttonType = alert.alertConfirmation(aptAnchorPane, alertMessage, "default");
+            if(buttonType.get() == ButtonType.OK){  
+                int result =appointObj.deleteAppointment(selectedAppointment.getAppointment_ID());
+                if(result == 1){
+                    aptMainMsg.setText("Message: The appointment has been successfully deleted.");
+                    //redisplay the list and reselect the default filter after delete successfully.
+                    filterAll(event);
+                    filterGroup.selectToggle(FilterAll);
+                }else{
+                    aptMainMsg.setText("Message: Connection error, the deletion was canceled.");
+                }
+            }
+        }catch(IndexOutOfBoundsException e){
+            aptMainMsg.setText("Message: Please select an appointment before deleting.");
+        }
+
+    }
+    /** this method takes the user to the update appointment page. 
+     @param event event stage switch.
+     @exception IOException stage switch */
+    @FXML
+    void updateAppointment(ActionEvent event) throws IOException {
+        try{
+            ObservableList<Appointment> tableviewAppointments = AptTableView.getSelectionModel().getSelectedItems();
+            selectedAppointment = tableviewAppointments.get(0);
+            String viewFilePath ="/view/UpdateAppointment.fxml";
+            StageSwitch newStage = new StageSwitch();
+            newStage.switchStage(viewFilePath, event);
+        }catch(IndexOutOfBoundsException e){
+            aptMainMsg.setText("Message: Please select an appointment before deleting.");
+        }
     }
     
 }

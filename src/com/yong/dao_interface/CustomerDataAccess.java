@@ -41,4 +41,11 @@ public interface CustomerDataAccess {
      */
     public int updateCustomer(String Customer_Name, String Address, String Postal_Code, String Phone, String User, int Division_ID, int Customer_ID);   
     
+    /**
+     * get a customer by its ID.
+     * @param customerID
+     * @return
+     */
+    public Customer getCustomerByID(int customerID);
+
 }

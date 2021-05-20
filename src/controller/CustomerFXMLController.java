@@ -100,15 +100,22 @@ public class CustomerFXMLController implements Initializable {
 
     }
     /** this method deletes a selected customer, all appointments associate with the customer are also deleted. 
-     @param event event*/
+     @param event event */
     @FXML
     void deleteCustomer(ActionEvent event) {
         int deleteResult=0;
         listCustomer=tableview.getSelectionModel().getSelectedItems();
         String alertMessage ="Are you sure to delete this customer? ";
+        
         AlertConfirmation alert = new AlertConfirmation();//pop a confirmation box.
-        Optional<ButtonType> buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage, "default");
+        Optional<ButtonType> buttonType = null;
         //if 'OK' is selected, the user is taken back to the login form page.
+        try{
+        System.out.println(listCustomer.get(0));
+        buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage, "default");
+        }catch(IndexOutOfBoundsException e){
+            Customer_Message.setText("Please select a customer first.");
+        }
         if(buttonType.get() == ButtonType.OK){           
             try{
             //create a customer DAO object and call the delete method.

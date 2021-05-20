@@ -32,5 +32,11 @@ public class ContactDAOImplement implements ContactDataAccess{
         }
         return contactList;
     }
+
+    @Override
+    public Contact getContactByID(int contactID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }

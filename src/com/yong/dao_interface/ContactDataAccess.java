@@ -16,4 +16,11 @@ public interface ContactDataAccess {
      /** A getAllContacts abstract method. 
      * @return  returns an observableList of Contact type*/
     public ObservableList<Contact> getAllContacts();
+    
+    /**
+     * get a contact by its ID. 
+     * @param contactID
+     * @return
+     */
+    public Contact getContactByID(int contactID);
 }

@@ -26,5 +26,8 @@ public interface AppointmentDataAccess {
      * @param contact_id contact id
      * @return  the result 1 or 0;*/
     public int createAppointment(String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int user_id, int contact_id);
+    /** delete a selected appointment. 
+     @param appointmentID appointment id. */
+    public int deleteAppointment(int appointmentID);
     
 }

@@ -15,10 +15,12 @@
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/Division.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_interface/CustomerDataAccess.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_implement/UserDAOImplement.java</file>
+            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/view/UpdateAppointment.fxml</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/utility/StageSwitch.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/Appointment.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/controller/CustomerFXMLController.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/functional_interface/ConvertToTimestamp.java</file>
+            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/controller/UpdateAppointmentController.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/Customer.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_implement/ContactDAOImplement.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/controller/UpdateCustomerController.java</file>

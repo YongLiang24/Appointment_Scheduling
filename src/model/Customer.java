@@ -42,6 +42,15 @@ public class Customer {
         this.Division_ID=Division_ID;
         this.Country_ID=Country_ID;
     }
+    //this constructor is for appointment update.
+    public Customer(int Customer_ID, String Name) {
+        this.Customer_ID = Customer_ID;
+        this.Name = Name;
+    }
+
+
+    
+    
     
     /** Customer name getter.
      * @return  get customer name*/
