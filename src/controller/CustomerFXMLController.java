@@ -230,7 +230,7 @@ public class CustomerFXMLController implements Initializable {
     
     private void getAlertMessage(){
         //get current datetime
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now().withHour(11);
         System.out.println("currenttime: "+currentDateTime);
         ObservableList<Appointment> aptList = FXCollections.observableArrayList();
         ObservableList<Appointment> alertViewList = FXCollections.observableArrayList();
@@ -242,9 +242,9 @@ public class CustomerFXMLController implements Initializable {
             LocalDateTime aptDateTime = apt.getStart().toLocalDateTime();
             boolean isSameDate =currentDateTime.toLocalDate().equals(aptDateTime.toLocalDate());
             boolean isSameHour = (currentDateTime.getHour() == aptDateTime.getHour());
-            long timeDifference = ChronoUnit.MINUTES.between(currentDateTime, aptDateTime);
-            //System.out.println("time: "+timeDifference);
-            boolean isAlertMinute = (timeDifference+1) >=0 && (timeDifference+1) <=15;
+            long timeDifference = ChronoUnit.MINUTES.between(currentDateTime, aptDateTime)+1;
+  
+            boolean isAlertMinute = (timeDifference) >=0 && (timeDifference) <=15;
             if(isSameDate && isSameHour && isAlertMinute){
                 AlertMsg.setText(" You have the following appointments within 15 minutes:");
                 alertViewList.add(apt);   
@@ -253,9 +253,6 @@ public class CustomerFXMLController implements Initializable {
             }
         }
         //set the alert appointments to the list.
-        AlertList.setItems(alertViewList);
-        
-        
-        
+        AlertList.setItems(alertViewList);    
     }
 }
