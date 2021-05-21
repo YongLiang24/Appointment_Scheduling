@@ -109,5 +109,29 @@ public class AppointDAOImplement implements AppointmentDataAccess{
           return result;
     }
 
+    @Override
+    public int updateAppointment(int appointment_id, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int contact_id) {
+        int updateResult=0;
+        try {
+            String sql ="UPDATE appointments SET Title = ?, Description = ?, Location =?, Type =?, Start=?, End=?, Last_Update=?, Last_Updated_By=?, Customer_ID=?, Contact_ID=? WHERE Appointment_ID = "+appointment_id;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, location);
+            ps.setString(4, type);       
+            ps.setTimestamp(5, Timestamp.valueOf(startTime));
+            ps.setTimestamp(6, Timestamp.valueOf(endTime));
+            ps.setTimestamp(7,Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(8, user);
+            ps.setInt(9, customer_id);
+            ps.setInt(10, contact_id);
+            updateResult = ps.executeUpdate();     
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }   
+        return updateResult;
+    }
+
+
     
 }

@@ -26,8 +26,23 @@ public interface AppointmentDataAccess {
      * @param contact_id contact id
      * @return  the result 1 or 0;*/
     public int createAppointment(String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int user_id, int contact_id);
+    
     /** delete a selected appointment. 
-     @param appointmentID appointment id. */
+     @param appointmentID appointment id.
+     * @return  result 1 or 0*/
     public int deleteAppointment(int appointmentID);
+    
+    /** Update an appointment method.
+     * @param title title
+     * @param description description
+     * @param location location
+     * @param type type
+     * @param startTime startTime
+     * @param endTime endTime
+     * @param user created by
+     * @param customer_id customer id
+     * @param contact_id contact id
+     * @return  the result 1 or 0;*/
+    public int updateAppointment(int appointment_id, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int contact_id);
     
 }

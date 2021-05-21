@@ -35,8 +35,21 @@ public class ContactDAOImplement implements ContactDataAccess{
 
     @Override
     public Contact getContactByID(int contactID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Contact getContact =null;
+        try {
+            String sql = "select * from contacts where Contact_ID ="+contactID;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+            getContact = new Contact(rs.getString("Contact_Name"), rs.getString("Email"), rs.getInt("Contact_ID"));
+            }
+        } catch (SQLException ex) {
+            ex.getStackTrace();
+        }
+        return getContact;
     }
+
+
     
     
 }

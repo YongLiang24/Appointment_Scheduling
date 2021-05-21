@@ -51,10 +51,10 @@ public class AddAppointmentController implements Initializable {
     @FXML private ComboBox<Customer> CustomerCombo;
     @FXML private Label APTWarningMsg;
     
-    private User loggedUser;
-    private ObservableList<Contact> contactList;
-    private ObservableList<Customer> customerList;
-    private ObservableList<Appointment> appointmentList;
+    User loggedUser;
+    ObservableList<Contact> contactList;
+    ObservableList<Customer> customerList;
+    ObservableList<Appointment> appointmentList;
     @FXML private AnchorPane AddAppointment_AnchorPane;
     
     @FXML private Label HourFrom;
@@ -115,12 +115,15 @@ public class AddAppointmentController implements Initializable {
                 int contactID = ContactCombo.getSelectionModel().getSelectedItem().getContact_ID();
               
                 appointmentList = getAppointmentList();//get all appointments.
-                if(checkEmptyFields() && checkHourSelect() && checkTimeOverLap(appointmentList, startTime, endTime) && validateEndHour() && validateEndMinute()){
+                if(checkEmptyFields() && checkHourSelect() && checkTimeOverLap(appointmentList, startTime, endTime, AddAppointment_AnchorPane) && validateEndHour() && validateEndMinute()){
                    AppointDAOImplement createApt = new AppointDAOImplement();
                    int createResult =  createApt.createAppointment(title, description, location, type, startTime, endTime, userName, customerID, userID, contactID);
-                   System.out.println("created result: "+createResult);
-                   String alertMessage ="Appointment has successfully created!";       
-                    
+                   String alertMessage =""; 
+                   if(createResult ==1){
+                       alertMessage ="Appointment has successfully created!";       
+                   }else{
+                       alertMessage ="Connection error, appointment was not created.!"; 
+                   }
                    Optional<ButtonType> buttonType = alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "information");
                    if(buttonType.get() == ButtonType.OK){
                         goBackBtn(event);
@@ -208,7 +211,7 @@ public class AddAppointmentController implements Initializable {
     }
     /** this method validates hour select for starting time must be earlier than ending time.
      @return Boolean Boolean */
-    private boolean validateEndHour(){
+    boolean validateEndHour(){
         try{
         if(StartHour.getSelectionModel().getSelectedItem() > EndHour.getSelectionModel().getSelectedItem()){
             return false;
@@ -218,7 +221,7 @@ public class AddAppointmentController implements Initializable {
     }
     /** this method validates minutes select for starting time must be earlier than ending time.
      @return Boolean Boolean */
-    private boolean validateEndMinute(){
+    boolean validateEndMinute(){
         try{
         if(StartHour.getSelectionModel().getSelectedItem() == EndHour.getSelectionModel().getSelectedItem() && StartMinute.getSelectionModel().getSelectedItem() >= EndMinute.getSelectionModel().getSelectedItem()){  
             APTWarningMsg.setText("Message: Ending Minute must be later than the starting minute.");
@@ -241,7 +244,7 @@ public class AddAppointmentController implements Initializable {
     }
     /** this method validates any empty fields when submitting. 
      @return Boolean Boolean.*/
-    private boolean checkEmptyFields(){
+    boolean checkEmptyFields(){
         return !(Title.getText().isEmpty() || Description.getText().isEmpty() || Location.getText().isEmpty() || Type.getText().isEmpty());
     }
     /** this method validates hour select within office hour after time offset from user's current timezone. 
@@ -254,20 +257,19 @@ public class AddAppointmentController implements Initializable {
      @param start local start time object
      @param end local end time object.
      @return Boolean */
-    boolean checkTimeOverLap(ObservableList<Appointment> aptList, LocalDateTime start, LocalDateTime end){
+    boolean checkTimeOverLap(ObservableList<Appointment> aptList, LocalDateTime start, LocalDateTime end, AnchorPane anchorpane){
         String alertMessage ="The selected time is overlapping with another appointment. Please select another time.";
         for(Appointment apt: aptList){
             LocalDateTime storedStart = apt.getStart().toLocalDateTime();
             LocalDateTime storedEnd = apt.getEnd().toLocalDateTime();
-            System.out.println("DB to local: "+storedStart);
             if(start.isEqual(storedStart) || start.isEqual(storedEnd) || end.isEqual(storedStart) || end.isEqual(storedEnd)){
-                alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "warning");
+                alert.alertConfirmation(anchorpane, alertMessage, "warning");
                 return false;
             }else if((start.isAfter(storedStart)&& start.isBefore(storedEnd)) || (end.isAfter(storedStart)&& end.isBefore(storedEnd))){
-                alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "warning");
+                alert.alertConfirmation(anchorpane, alertMessage, "warning");
                 return false;
             }else if(start.isBefore(storedStart) && end.isAfter(storedEnd)){
-                alert.alertConfirmation(AddAppointment_AnchorPane, alertMessage, "warning");
+                alert.alertConfirmation(anchorpane, alertMessage, "warning");
                 return false;
             }
         }
