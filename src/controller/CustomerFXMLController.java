@@ -1,4 +1,5 @@
 package controller;
+import com.yong.dao_implement.AppointDAOImplement;
 import com.yong.dao_implement.CountryDAOImplement;
 import com.yong.dao_implement.CustomerDAOImplement;
 import com.yong.dao_implement.StateDAOImplement;
@@ -7,6 +8,8 @@ import com.yong.utility.AlertConfirmation;
 import com.yong.utility.StageSwitch;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
@@ -17,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import model.Country;
 import model.Customer;
 import model.Division;
+import model.Appointment;
 
 /**
  * FXML Customer Display Controller class. 
@@ -49,6 +54,8 @@ public class CustomerFXMLController implements Initializable {
     @FXML private TableColumn<Customer, String> Country;
     @FXML private Label Customer_Message;
     @FXML private AnchorPane Customer_AnchorPane;
+    @FXML private ListView<Appointment> AlertList;
+    @FXML private Label AlertMsg;
     //local fields
     private String divisionName;
     private int countryID;
@@ -70,6 +77,8 @@ public class CustomerFXMLController implements Initializable {
 
         setCustomersToTableView();
         listCustomer=tableview.getSelectionModel().getSelectedItems();
+        
+        getAlertMessage();
     }
     /** This action event will switch to a customer creation page scene. 
      @param event event reference.
@@ -114,25 +123,26 @@ public class CustomerFXMLController implements Initializable {
         System.out.println(listCustomer.get(0));
         buttonType = alert.alertConfirmation(Customer_AnchorPane, alertMessage, "default");
         }catch(IndexOutOfBoundsException e){
-            Customer_Message.setText("Please select a customer first.");
+            Customer_Message.setText("Message: Please select a customer first.");
         }
+        try{
         if(buttonType.get() == ButtonType.OK){           
-            try{
+            
             //create a customer DAO object and call the delete method.
             CustomerDAOImplement deleteCustomer = new CustomerDAOImplement();
             deleteResult = deleteCustomer.deleteCustomer(listCustomer.get(0).getCustomer_ID());
                 if(deleteResult ==1){
-                    Customer_Message.setText("A customer has been deleted.");
+                    Customer_Message.setText("Message: A customer has been deleted.");
                     //call this method to refresh/update the tableview
                     setCustomersToTableView();                  
                 }else{
-                    System.out.println("Customer didnt delete.");
+                    Customer_Message.setText("Message: Connection error, customer was not deleted.");
                 }
             }
-            catch(Exception e){
-                Customer_Message.setText("Please select a customer first.");
+           
+        } catch(Exception e){
+                Customer_Message.setText("Message: Please select a customer first.");
             }
-        }
     }
     /** This method gets called when user clicks on the logout button. 
      * It prompts user for confirmation.
@@ -216,5 +226,36 @@ public class CustomerFXMLController implements Initializable {
         StageSwitch newStage = new StageSwitch();
         newStage.switchStage(viewFilePath, event); 
 
+    }
+    
+    private void getAlertMessage(){
+        //get current datetime
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        System.out.println("currenttime: "+currentDateTime);
+        ObservableList<Appointment> aptList = FXCollections.observableArrayList();
+        ObservableList<Appointment> alertViewList = FXCollections.observableArrayList();
+        //get all appointments to an observable list.
+        AppointDAOImplement appointmentObj = new AppointDAOImplement();
+        aptList = appointmentObj.getAllAppointments();
+        //compare the current datetime with the appointment start datetime for the alert event.
+        for(Appointment apt: aptList){
+            LocalDateTime aptDateTime = apt.getStart().toLocalDateTime();
+            boolean isSameDate =currentDateTime.toLocalDate().equals(aptDateTime.toLocalDate());
+            boolean isSameHour = (currentDateTime.getHour() == aptDateTime.getHour());
+            long timeDifference = ChronoUnit.MINUTES.between(currentDateTime, aptDateTime);
+            //System.out.println("time: "+timeDifference);
+            boolean isAlertMinute = (timeDifference+1) >=0 && (timeDifference+1) <=15;
+            if(isSameDate && isSameHour && isAlertMinute){
+                AlertMsg.setText(" You have the following appointments within 15 minutes:");
+                alertViewList.add(apt);   
+            }else{
+                AlertMsg.setText(" You have no upcoming appointments.");
+            }
+        }
+        //set the alert appointments to the list.
+        AlertList.setItems(alertViewList);
+        
+        
+        
     }
 }

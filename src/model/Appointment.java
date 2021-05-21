@@ -81,5 +81,10 @@ public class Appointment {
         return Contact_ID;
     }
     
-    
+    /** override the toString to display appointment id and DateTime. 
+     * @return contact name*/
+    @Override
+    public String toString(){
+        return "ID: "+Appointment_ID+" - Time: "+Start;
+    }
 }

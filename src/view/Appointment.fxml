@@ -30,7 +30,7 @@
       <RadioButton fx:id="FilterMonthly" layoutX="181.0" layoutY="289.0" mnemonicParsing="false" onAction="#filterMonthly" text="Monthly" toggleGroup="$filterGroup" />
       <RadioButton fx:id="FilterWeekly" layoutX="257.0" layoutY="289.0" mnemonicParsing="false" onAction="#filterWeekly" text="Weekly" toggleGroup="$filterGroup" />
       <Button layoutX="130.0" layoutY="328.0" mnemonicParsing="false" onAction="#createAppointment" text="Create" />
-      <Button layoutX="202.0" layoutY="328.0" mnemonicParsing="false" onAction="#updateAppointment" text="Update" />
+      <Button layoutX="202.0" layoutY="328.0" mnemonicParsing="false" onAction="#updateAppointment" prefHeight="25.0" prefWidth="51.0" text="Edit" />
       <Button layoutX="275.0" layoutY="328.0" mnemonicParsing="false" onAction="#deleteAppointment" text="Delete" />
       <Button layoutX="433.0" layoutY="328.0" mnemonicParsing="false" onAction="#getBackToCustomer" text="Go Back" />
       <Label layoutX="39.0" layoutY="332.0" text="Appointments:" />

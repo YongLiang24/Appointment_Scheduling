@@ -373,3 +373,22 @@ The user [test] successfully logged in at 2021-05-20T20:48:08.866920900
 The user [test] successfully logged in at 2021-05-20T20:49:49.020042500
 The user [test] successfully logged in at 2021-05-20T20:50:58.132797400
 The user [test] successfully logged in at 2021-05-20T21:46:56.119145600
+The user [test] successfully logged in at 2021-05-20T22:52:17.696524100
+The user [] enters an invalid login at 2021-05-20T22:55:20.379024400
+The user [] enters an invalid login at 2021-05-20T22:55:23.456664200
+The user [fds] enters an invalid login at 2021-05-20T22:55:27.838131800
+The user [test] successfully logged in at 2021-05-20T22:55:36.476753800
+The user [test] successfully logged in at 2021-05-20T23:23:32.630683100
+The user [test] successfully logged in at 2021-05-20T23:26:46.844091600
+The user [test] successfully logged in at 2021-05-20T23:29:23.687265800
+The user [admin] successfully logged in at 2021-05-20T23:31:05.128821700
+The user [test] successfully logged in at 2021-05-20T23:32:14.379505500
+The user [admin] successfully logged in at 2021-05-20T23:37:05.239386100
+The user [test] successfully logged in at 2021-05-20T23:49:50.786062400
+The user [test] successfully logged in at 2021-05-20T23:57:48.467318400
+The user [test] successfully logged in at 2021-05-21T00:05:31.764760800
+The user [test] successfully logged in at 2021-05-21T00:08:34.819444900
+The user [test] successfully logged in at 2021-05-21T00:11:36.413419100
+The user [test] successfully logged in at 2021-05-21T00:12:31.000038300
+The user [test] successfully logged in at 2021-05-21T00:14:44.356209800
+The user [admin] successfully logged in at 2021-05-21T00:15:46.761765700

@@ -59,7 +59,7 @@ public class UpdateAppointmentController extends AddAppointmentController implem
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<Integer> StartHourList = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24);      
+        ObservableList<Integer> StartHourList = FXCollections.observableArrayList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);      
         StartHour.setItems(StartHourList);
         ObservableList<Integer> StartMinuteList = FXCollections.observableArrayList(0,5,10,15,20,25,30,35,40,45,50,55);      
         StartMinute.setItems(StartMinuteList);
@@ -69,7 +69,7 @@ public class UpdateAppointmentController extends AddAppointmentController implem
         ContactCombo.setItems(getContactList());
         CustomerCombo.setItems(getCustomerList());
         
-        ObservableList<Integer> EndHourList = FXCollections.observableArrayList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24);      
+        ObservableList<Integer> EndHourList = FXCollections.observableArrayList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);      
         EndHour.setItems(EndHourList);
         ObservableList<Integer> EndMinuteList = FXCollections.observableArrayList(0,5,10,15,20,25,30,35,40,45,50,55);      
         EndMinute.setItems(EndMinuteList);
