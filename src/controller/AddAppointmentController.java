@@ -304,7 +304,7 @@ public class AddAppointmentController implements Initializable {
         CustomerDAOImplement customerObj = new CustomerDAOImplement();
         return customerObj.getAllCustomers();
     }
-    /** this method returns customer appointments. 
+    /** this method returns appointments that belong to the selected customer. 
      @return a list of appointments.*/
     ObservableList<Appointment> getCustomerAppointments(){
         ObservableList<Appointment> customerAptList = FXCollections.observableArrayList();

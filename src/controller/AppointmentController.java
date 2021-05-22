@@ -82,7 +82,7 @@ public class AppointmentController implements Initializable {
         aptContactList = getAptContactList();//get a list of appointments with contact names.
         setToTableView(aptContactList);
     }
-    /** this method utilizes Lambda Stream to filters appointments and display by current month.
+    /** Discussion of Lambda: this method utilizes Lambda Stream to help to filters appointments and display by current month.
      * it gets call when selects the Month radio button.
      @param event event.*/
     @FXML

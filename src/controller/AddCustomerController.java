@@ -31,7 +31,8 @@ public class AddCustomerController implements Initializable {
     private final ObservableList<Division> divisionList=FXCollections.observableArrayList();
     private int DivisionID;
 
-    /** #3 Utilized Lambda expression to set country object to the combo box, this expression may be used again for another combo box type. 
+    /** Discussion of Lambda: Utilized Lambda expression to set a list of countries to the combo box.
+     * this expression may be used again for another combo box type. 
      * Initializes the controller class.
      * @param url URL reference
      * @param rb ReourceBundle reference*/
@@ -41,7 +42,7 @@ public class AddCustomerController implements Initializable {
         SetComboBox setCountryCombo = cb -> cb.setItems(CustomerFXMLController.CountryList);
         setCountryCombo.setListToCombo(Country_Combo);
     }    
-    /** this method uses Lambda Expression to set divisionList to the division combo box.
+    /** Discussion of Lambda: this method uses Lambda Expression to set divisionList to the division combo box.
      adds divisions to the combo box based on the country select.
      @param event event*/
     @FXML

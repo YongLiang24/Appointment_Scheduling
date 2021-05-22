@@ -162,7 +162,7 @@ public class CustomerFXMLController implements Initializable {
         }
     }
     
-    /** This method utilizes Lambda Expressions to retrieve division and country data related to the customers. 
+    /** Discussion of Lambda: This method used Lambda Expressions to filter division and country data related to the customers. 
      It generates customer objects with the correct divisions and countries and return an observableList.
      * @param customerList a list contains all customer objects
      * @param divisionList a list contains all division objects
@@ -230,7 +230,8 @@ public class CustomerFXMLController implements Initializable {
     
     private void getAlertMessage(){
         //get current datetime
-        LocalDateTime currentDateTime = LocalDateTime.now().withHour(11);
+        LocalDateTime currentDateTime = LocalDateTime.now().withHour(11).withMinute(11);
+        
         System.out.println("currenttime: "+currentDateTime);
         ObservableList<Appointment> aptList = FXCollections.observableArrayList();
         ObservableList<Appointment> alertViewList = FXCollections.observableArrayList();
@@ -241,9 +242,14 @@ public class CustomerFXMLController implements Initializable {
             LocalDateTime aptDateTime = apt.getStart().toLocalDateTime();
             boolean isSameDate =currentDateTime.toLocalDate().equals(aptDateTime.toLocalDate());
             boolean isSameHour = (currentDateTime.getHour() == aptDateTime.getHour());
-            long timeDifference = ChronoUnit.MINUTES.between(currentDateTime, aptDateTime)+1;
-  
+            long timeDifference = ChronoUnit.MINUTES.between(currentDateTime, aptDateTime);
+            System.out.println("apt: "+apt.getStart());
+            System.out.println("local: "+currentDateTime);
+            System.out.println("same date: "+isSameDate);
+            System.out.println("same hour: "+isSameHour);
+            System.out.println("time differ: "+timeDifference);
             boolean isAlertMinute = (timeDifference) >=0 && (timeDifference) <=15;
+            System.out.println("isAlert: "+isAlertMinute);
             if(isSameDate && isSameHour && isAlertMinute){
                 AlertMsg.setText(" You have the following appointments within 15 minutes:");
                 alertViewList.add(apt);   
