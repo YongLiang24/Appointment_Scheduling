@@ -3,6 +3,7 @@ package controller;
 import com.yong.dao_implement.AppointDAOImplement;
 import com.yong.dao_implement.ContactDAOImplement;
 import com.yong.dao_implement.CustomerDAOImplement;
+import com.yong.dao_implement.UserDAOImplement;
 import com.yong.utility.AlertConfirmation;
 import com.yong.utility.StageSwitch;
 import java.io.IOException;
@@ -49,11 +50,13 @@ public class AddAppointmentController implements Initializable {
     @FXML private TextField Type;
     @FXML private ComboBox<Contact> ContactCombo;
     @FXML private ComboBox<Customer> CustomerCombo;
+    @FXML private ComboBox<User> UserCombo;
     @FXML private Label APTWarningMsg;
     
     User loggedUser;
     ObservableList<Contact> contactList;
     ObservableList<Customer> customerList;
+    ObservableList<User> userList;
     ObservableList<Appointment> appointmentList;
     @FXML private AnchorPane AddAppointment_AnchorPane;
     
@@ -82,10 +85,12 @@ public class AddAppointmentController implements Initializable {
         loggedUser = LoginFXMLController.loggedUserObj; //get the current logged in user.     
         contactList = getContactList(); //get all contacts to an observableList.
         customerList = getCustomerList();//get all customers to an observableList.
-        appointmentList = getAppointmentList();//get all appointments.
+        userList = getUsers();
+        //appointmentList = getAppointmentList();//get all appointments.
         
         ContactCombo.setItems(contactList);
         CustomerCombo.setItems(customerList);
+        UserCombo.setItems(userList);
         
         HourFrom.setText(String.valueOf(8+getZoneOffsetHour()));
         HourTo.setText(String.valueOf(20+getZoneOffsetHour()));
@@ -104,8 +109,8 @@ public class AddAppointmentController implements Initializable {
             String description = Description.getText();
             String location = Location.getText();
             String type = Type.getText();
-            String userName = loggedUser.getUsername();
-            int userID = loggedUser.getUser_ID();
+            //String userName = loggedUser.getUsername();
+            //int userID = loggedUser.getUser_ID();
             
             try{
                 LocalDateTime startTime =convertAppointmentTime(DatePickerSelect, StartHour.getSelectionModel().getSelectedItem(), StartMinute.getSelectionModel().getSelectedItem());
@@ -113,8 +118,11 @@ public class AddAppointmentController implements Initializable {
 
                 int customerID = CustomerCombo.getSelectionModel().getSelectedItem().getCustomer_ID();
                 int contactID = ContactCombo.getSelectionModel().getSelectedItem().getContact_ID();
-              
-                appointmentList = getAppointmentList();//get all appointments.
+                int userID = UserCombo.getSelectionModel().getSelectedItem().getUser_ID();
+                String userName = UserCombo.getSelectionModel().getSelectedItem().getUsername();
+                  
+                appointmentList = getCustomerAppointments();//get all appointments.
+                
                 if(checkEmptyFields() && checkHourSelect() && checkTimeOverLap(appointmentList, startTime, endTime, AddAppointment_AnchorPane) && validateEndHour() && validateEndMinute()){
                    AppointDAOImplement createApt = new AppointDAOImplement();
                    int createResult =  createApt.createAppointment(title, description, location, type, startTime, endTime, userName, customerID, userID, contactID);
@@ -296,10 +304,22 @@ public class AddAppointmentController implements Initializable {
         CustomerDAOImplement customerObj = new CustomerDAOImplement();
         return customerObj.getAllCustomers();
     }
-    /** this method returns all appointments. 
+    /** this method returns customer appointments. 
      @return a list of appointments.*/
-    ObservableList<Appointment> getAppointmentList(){
+    ObservableList<Appointment> getCustomerAppointments(){
+        ObservableList<Appointment> customerAptList = FXCollections.observableArrayList();
+        int customerID = CustomerCombo.getSelectionModel().getSelectedItem().getCustomer_ID();
         AppointDAOImplement appointObj = new AppointDAOImplement();
-        return appointObj.getAllAppointments();
+        for(Appointment apt: appointObj.getAllAppointments()){
+            if(customerID == apt.getCustomer_ID()){
+                customerAptList.add(apt);
+            }
+        }   
+        return customerAptList;
+    }
+    
+    ObservableList<User> getUsers(){
+        UserDAOImplement userObj = new UserDAOImplement();
+        return userObj.getAllUsers();
     }
 }

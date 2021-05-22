@@ -41,6 +41,10 @@ public class User {
         return this.password;
     }
     
-    
+    //override the toString method for the objects to display the division names.
+    @Override
+    public String toString(){
+        return "ID: "+User_ID+" - "+username;
+    }
     
 }

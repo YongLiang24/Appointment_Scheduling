@@ -34,5 +34,21 @@ public class UserDAOImplement implements UserDataAccess{
         
         return userList;
     }   
+
+    @Override
+    public User getUserByID(int userID) {
+        User user=null;
+        try {
+            String sql = "select * from users where User_ID ="+userID;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                user = new User(rs.getString("User_Name"), rs.getString("Password"), rs.getInt("User_ID"));
+            }
+        } catch (SQLException ex) {
+            ex.getStackTrace();
+        }
+        return user;
+    }
     
 }

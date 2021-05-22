@@ -234,9 +234,8 @@ public class CustomerFXMLController implements Initializable {
         System.out.println("currenttime: "+currentDateTime);
         ObservableList<Appointment> aptList = FXCollections.observableArrayList();
         ObservableList<Appointment> alertViewList = FXCollections.observableArrayList();
-        //get all appointments to an observable list.
-        AppointDAOImplement appointmentObj = new AppointDAOImplement();
-        aptList = appointmentObj.getAllAppointments();
+        //get user appointments to an observable list.
+        aptList = getUserAppointments();
         //compare the current datetime with the appointment start datetime for the alert event.
         for(Appointment apt: aptList){
             LocalDateTime aptDateTime = apt.getStart().toLocalDateTime();
@@ -254,5 +253,17 @@ public class CustomerFXMLController implements Initializable {
         }
         //set the alert appointments to the list.
         AlertList.setItems(alertViewList);    
+    }
+    
+    private ObservableList<Appointment> getUserAppointments(){
+        int userID = LoginFXMLController.loggedUserObj.getUser_ID();
+        ObservableList<Appointment> userAptList = FXCollections.observableArrayList();
+        AppointDAOImplement appointmentObj = new AppointDAOImplement();
+        for(Appointment apt: appointmentObj.getAllAppointments()){
+            if(userID == apt.getUser_ID()){
+                userAptList.add(apt);
+            }
+        }
+        return userAptList;
     }
 }

@@ -36,5 +36,6 @@
       <Label layoutX="553.0" layoutY="167.0" text="to" />
       <Label fx:id="HourTo" layoutX="571.0" layoutY="168.0" text="?" />
       <Label layoutX="510.0" layoutY="168.0" text="from" />
+      <ComboBox fx:id="UserCombo" layoutX="448.0" layoutY="34.0" prefHeight="25.0" prefWidth="127.0" promptText="Select a user" />
    </children>
 </AnchorPane>

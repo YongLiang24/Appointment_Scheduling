@@ -10,4 +10,6 @@ public interface UserDataAccess {
      * @return  returns an observableList of user type*/
     public ObservableList<User> getAllUsers();
     
+    public User getUserByID(int userID);
+    
 }

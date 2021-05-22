@@ -110,10 +110,10 @@ public class AppointDAOImplement implements AppointmentDataAccess{
     }
 
     @Override
-    public int updateAppointment(int appointment_id, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int contact_id) {
+    public int updateAppointment(int appointment_id, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int contact_id, int user_id) {
         int updateResult=0;
         try {
-            String sql ="UPDATE appointments SET Title = ?, Description = ?, Location =?, Type =?, Start=?, End=?, Last_Update=?, Last_Updated_By=?, Customer_ID=?, Contact_ID=? WHERE Appointment_ID = "+appointment_id;
+            String sql ="UPDATE appointments SET Title = ?, Description = ?, Location =?, Type =?, Start=?, End=?, Last_Update=?, Last_Updated_By=?, Customer_ID=?, Contact_ID=?, User_ID=? WHERE Appointment_ID = "+appointment_id;
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.setString(1, title);
             ps.setString(2, description);
@@ -125,6 +125,7 @@ public class AppointDAOImplement implements AppointmentDataAccess{
             ps.setString(8, user);
             ps.setInt(9, customer_id);
             ps.setInt(10, contact_id);
+            ps.setInt(11, user_id);
             updateResult = ps.executeUpdate();     
         } catch (SQLException ex) {
             ex.printStackTrace();

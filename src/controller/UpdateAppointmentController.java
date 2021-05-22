@@ -8,6 +8,7 @@ package controller;
 import com.yong.dao_implement.AppointDAOImplement;
 import com.yong.dao_implement.ContactDAOImplement;
 import com.yong.dao_implement.CustomerDAOImplement;
+import com.yong.dao_implement.UserDAOImplement;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import model.Appointment;
 import model.Customer;
 import model.Contact;
+import model.User;
 
 /**
  * FXML Controller class
@@ -43,6 +45,7 @@ public class UpdateAppointmentController extends AddAppointmentController implem
     @FXML private ComboBox<Contact> ContactCombo;
     @FXML private TextField Type;
     @FXML private ComboBox<Customer> CustomerCombo;
+    @FXML private ComboBox<User> UserCombo;
     @FXML private Label APTWarningMsg;
     @FXML private ComboBox<Integer> StartHour;
     @FXML private ComboBox<Integer> StartMinute;
@@ -68,6 +71,7 @@ public class UpdateAppointmentController extends AddAppointmentController implem
         
         ContactCombo.setItems(getContactList());
         CustomerCombo.setItems(getCustomerList());
+        UserCombo.setItems(getUsers());
         
         ObservableList<Integer> EndHourList = FXCollections.observableArrayList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23);      
         EndHour.setItems(EndHourList);
@@ -79,6 +83,8 @@ public class UpdateAppointmentController extends AddAppointmentController implem
         Customer selectedCustomer =getCustomer.getCustomerByID(selectedApt.getCustomer_ID());
         ContactDAOImplement getContact = new ContactDAOImplement();
         Contact selectedContact = getContact.getContactByID(selectedApt.getContact_ID());
+        UserDAOImplement getUser = new UserDAOImplement();
+        User selectedUser = getUser.getUserByID(selectedApt.getUser_ID());
         //set default values
         Title.setText(selectedApt.getTitle());
         Description.setText(selectedApt.getDescription());
@@ -86,6 +92,7 @@ public class UpdateAppointmentController extends AddAppointmentController implem
         Type.setText(selectedApt.getType());
         CustomerCombo.setValue(selectedCustomer);
         ContactCombo.setValue(selectedContact);
+        UserCombo.setValue(selectedUser);
         //set default date and time
         DatePickerSelect.setValue(selectedApt.getStart().toLocalDateTime().toLocalDate());
         StartHour.setValue(selectedApt.getStart().toLocalDateTime().getHour());
@@ -95,7 +102,7 @@ public class UpdateAppointmentController extends AddAppointmentController implem
         HourFrom.setText(String.valueOf(8+getZoneOffsetHour()));
         HourTo.setText(String.valueOf(20+getZoneOffsetHour()));
         
-        appointmentList = getAppointmentList();//get all appointments.
+        appointmentList = getCustomerAppointments();//get all appointments.
         avoidOwnTimeOverlapList = avoidOwnTimeOverlapUpdate(appointmentList);
         
     }    
@@ -107,19 +114,22 @@ public class UpdateAppointmentController extends AddAppointmentController implem
             String description = Description.getText();
             String location = Location.getText();
             String type = Type.getText();
-            String userName = loggedUser.getUsername();
             Appointment selectedApt = AppointmentController.selectedAppointment;
             try{
                 LocalDateTime startTime =convertAppointmentTime(DatePickerSelect, StartHour.getSelectionModel().getSelectedItem(), StartMinute.getSelectionModel().getSelectedItem());
                 LocalDateTime endTime =convertAppointmentTime(DatePickerSelect, EndHour.getSelectionModel().getSelectedItem(), EndMinute.getSelectionModel().getSelectedItem());
 
                 int customerID = CustomerCombo.getSelectionModel().getSelectedItem().getCustomer_ID();
-                int contactID = ContactCombo.getSelectionModel().getSelectedItem().getContact_ID();  
+                int contactID = ContactCombo.getSelectionModel().getSelectedItem().getContact_ID(); 
+                String userName= UserCombo.getSelectionModel().getSelectedItem().getUsername();
+                int userid = UserCombo.getSelectionModel().getSelectedItem().getUser_ID();
                 
+                appointmentList = getCustomerAppointments();//get all appointments.
+                avoidOwnTimeOverlapList = avoidOwnTimeOverlapUpdate(appointmentList);
                 if(checkEmptyFields() && checkHourSelect() && checkTimeOverLap(avoidOwnTimeOverlapList, startTime, endTime, UpdateAppointment_AnchorPane) && validateEndHour() && validateEndMinute()){
                    AppointDAOImplement updateApt = new AppointDAOImplement();
                    //int appointment_id, String title, String description, String location, String type, LocalDateTime startTime, LocalDateTime endTime, String user, int customer_id, int contact_id
-                   int createResult =  updateApt.updateAppointment(selectedApt.getAppointment_ID(), title, description, location, type, startTime, endTime, userName, customerID, contactID);
+                   int createResult =  updateApt.updateAppointment(selectedApt.getAppointment_ID(), title, description, location, type, startTime, endTime, userName, customerID, contactID, userid);
                    if(createResult ==1){
                     
                        String alertMessage ="Appointment has successfully updated!";        

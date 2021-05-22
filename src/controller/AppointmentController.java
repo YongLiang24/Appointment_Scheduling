@@ -201,13 +201,15 @@ public class AppointmentController implements Initializable {
         try{
             ObservableList<Appointment> tableviewAppointments = AptTableView.getSelectionModel().getSelectedItems();
             selectedAppointment = tableviewAppointments.get(0);
+            String type = selectedAppointment.getType();
+            int id = selectedAppointment.getAppointment_ID();
             aptMainMsg.setText("Message:");
             String alertMessage ="Are you sure to delete this appointment?"+" Appointment ID: "+selectedAppointment.getAppointment_ID()+", Type: "+selectedAppointment.getType();
             buttonType = alert.alertConfirmation(aptAnchorPane, alertMessage, "default");
             if(buttonType.get() == ButtonType.OK){  
                 int result =appointObj.deleteAppointment(selectedAppointment.getAppointment_ID());
                 if(result == 1){
-                    aptMainMsg.setText("Message: The appointment has been successfully deleted.");
+                    aptMainMsg.setText("Message: The appointment has been deleted."+" (Type: "+type+" - ID: "+id+")");
                     //redisplay the list and reselect the default filter after delete successfully.
                     filterAll(event);
                     filterGroup.selectToggle(FilterAll);
