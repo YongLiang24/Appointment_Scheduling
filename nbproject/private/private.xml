@@ -14,7 +14,9 @@
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/User.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/Division.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_interface/CustomerDataAccess.java</file>
+            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/view/Report.fxml</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_implement/UserDAOImplement.java</file>
+            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/controller/ReportController.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/view/UpdateAppointment.fxml</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/utility/StageSwitch.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/Appointment.java</file>
@@ -34,6 +36,7 @@
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_interface/ContactDataAccess.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/appointment_system/Appointment_System.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/Contact.java</file>
+            <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/model/MonthTypeReport.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/controller/AppointmentController.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/utility/DBConnection.java</file>
             <file>file:/C:/Users/yongl/Documents/NetBeansProjects/Appointment_System/src/com/yong/dao_implement/CountryDAOImplement.java</file>

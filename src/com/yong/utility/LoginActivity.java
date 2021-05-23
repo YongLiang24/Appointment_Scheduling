@@ -19,7 +19,7 @@ public class LoginActivity{
             pw.println("The user ["+username+"] successfully logged in at "+localTime);
             pw.close();
         }else{
-            pw.println("The user ["+username+"] enters an invalid login at "+localTime);
+            pw.println("The user has entered an invalid login at "+localTime);
             pw.close();           
         }
     }   

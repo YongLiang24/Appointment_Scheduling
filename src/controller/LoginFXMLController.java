@@ -81,7 +81,8 @@ public class LoginFXMLController implements Initializable {
         System.exit(0);
     }
     
-    /** This action event method responsible for tracking user login activities. 
+    /** This action event method responsible for tracking user login activities.
+     * calls the utility LoginActivity class methods for login tracking.
      * @param event ActionEvent reference 
      * @throws java.io.IOException handles file IOException*/
     @FXML

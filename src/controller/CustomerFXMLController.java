@@ -61,7 +61,7 @@ public class CustomerFXMLController implements Initializable {
     private int countryID;
     private String countryName;
     private ObservableList<Customer> CustomerList;
-    private ObservableList<Customer> CustomerDivisionList;
+    public static ObservableList<Customer> CustomerDivisionList;
     /** Initializes the controller class. Load data from database into the models.
      * get divisions and countries data for customer's table view.
      * @param url URL reference
@@ -230,9 +230,8 @@ public class CustomerFXMLController implements Initializable {
     
     private void getAlertMessage(){
         //get current datetime
-        LocalDateTime currentDateTime = LocalDateTime.now().withHour(11).withMinute(11);
+        LocalDateTime currentDateTime = LocalDateTime.now();
         
-        System.out.println("currenttime: "+currentDateTime);
         ObservableList<Appointment> aptList = FXCollections.observableArrayList();
         ObservableList<Appointment> alertViewList = FXCollections.observableArrayList();
         //get user appointments to an observable list.
@@ -241,16 +240,10 @@ public class CustomerFXMLController implements Initializable {
         for(Appointment apt: aptList){
             LocalDateTime aptDateTime = apt.getStart().toLocalDateTime();
             boolean isSameDate =currentDateTime.toLocalDate().equals(aptDateTime.toLocalDate());
-            boolean isSameHour = (currentDateTime.getHour() == aptDateTime.getHour());
-            long timeDifference = ChronoUnit.MINUTES.between(currentDateTime, aptDateTime);
-            System.out.println("apt: "+apt.getStart());
-            System.out.println("local: "+currentDateTime);
-            System.out.println("same date: "+isSameDate);
-            System.out.println("same hour: "+isSameHour);
-            System.out.println("time differ: "+timeDifference);
+            long timeDifference = ChronoUnit.MINUTES.between(currentDateTime, aptDateTime)+1;
             boolean isAlertMinute = (timeDifference) >=0 && (timeDifference) <=15;
-            System.out.println("isAlert: "+isAlertMinute);
-            if(isSameDate && isSameHour && isAlertMinute){
+            
+            if(isSameDate && isAlertMinute){
                 AlertMsg.setText(" You have the following appointments within 15 minutes:");
                 alertViewList.add(apt);   
             }else{
@@ -271,5 +264,12 @@ public class CustomerFXMLController implements Initializable {
             }
         }
         return userAptList;
+    }
+    
+    @FXML
+    void getReport(ActionEvent event) throws IOException {
+        String viewFilePath ="/view/Report.fxml";
+        StageSwitch newStage = new StageSwitch();
+        newStage.switchStage(viewFilePath, event);
     }
 }
