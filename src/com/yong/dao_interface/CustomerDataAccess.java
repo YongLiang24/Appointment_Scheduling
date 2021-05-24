@@ -43,8 +43,8 @@ public interface CustomerDataAccess {
     
     /**
      * get a customer by its ID.
-     * @param customerID
-     * @return
+     * @param customerID customer id.
+     * @return get a customer from a given id.
      */
     public Customer getCustomerByID(int customerID);
 

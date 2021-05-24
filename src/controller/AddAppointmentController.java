@@ -264,6 +264,7 @@ public class AddAppointmentController implements Initializable {
      @param aptList database appointment list
      @param start local start time object
      @param end local end time object.
+     @param anchorpane Anchor pane object
      @return Boolean */
     boolean checkTimeOverLap(ObservableList<Appointment> aptList, LocalDateTime start, LocalDateTime end, AnchorPane anchorpane){
         String alertMessage ="The selected time is overlapping with another appointment. Please select another time.";

@@ -19,8 +19,8 @@ public interface ContactDataAccess {
     
     /**
      * get a contact by its ID. 
-     * @param contactID
-     * @return
+     * @param contactID contact id.
+     * @return get a contact from a given id.
      */
     public Contact getContactByID(int contactID);
 }

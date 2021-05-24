@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportController">
    <children>
-      <TableView fx:id="AptReportView" layoutX="1.0" prefHeight="250.0" prefWidth="604.0" visible="false">
+      <TableView fx:id="AptReportView" layoutX="1.0" prefHeight="250.0" prefWidth="604.0">
         <columns>
           <TableColumn fx:id="AptType" prefWidth="323.99998474121094" text="Month &amp; Appointment Type Report" />
             <TableColumn fx:id="AptCount" prefWidth="137.14285278320312" text="Count" />
@@ -46,6 +46,6 @@
             <TableColumn fx:id="customer_count" prefWidth="146.28570556640625" text="Customer Count" />
         </columns>
       </TableView>
-      <Label fx:id="ReportWarning" layoutY="364.0" text="Warning:" />
+      <Label fx:id="ReportWarning" layoutY="364.0" />
    </children>
 </AnchorPane>

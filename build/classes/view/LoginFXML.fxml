@@ -12,7 +12,7 @@
    <children>
       <HBox alignment="CENTER" layoutX="1.0" prefHeight="66.0" prefWidth="600.0">
          <children>
-            <Label text="Appointment System INC">
+            <Label text="Appointment System I">
             </Label>
          </children></HBox>
       <VBox alignment="TOP_CENTER" layoutY="66.0" prefHeight="333.0" prefWidth="600.0">

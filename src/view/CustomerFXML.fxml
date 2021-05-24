@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="Customer_AnchorPane" prefHeight="400.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerFXMLController">
    <children>
-      <TableView fx:id="tableview" layoutX="-2.0" prefHeight="330.0" prefWidth="651.0">
+      <TableView fx:id="tableview" layoutX="-2.0" layoutY="22.0" prefHeight="275.0" prefWidth="651.0">
         <columns>
           <TableColumn fx:id="Customer" prefWidth="104.00000321865082" text="Name" />
           <TableColumn fx:id="Address" prefWidth="146.85710906982422" text="Address" />
@@ -19,16 +19,17 @@
             <TableColumn fx:id="Country" prefWidth="113.14288330078125" text="Country" />
         </columns>
       </TableView>
-      <Button layoutX="71.0" layoutY="347.0" mnemonicParsing="false" onAction="#createCustomer" prefWidth="70.0" text="Create" />
-      <Label fx:id="Customer_Message" layoutX="14.0" layoutY="375.0" text="Message:" />
-      <Button layoutX="161.0" layoutY="347.0" mnemonicParsing="false" onAction="#updateCustomer" prefWidth="70.0" text="Update" />
-      <Button layoutX="253.0" layoutY="347.0" mnemonicParsing="false" onAction="#deleteCustomer" prefWidth="70.0" text="Delete" />
-      <Button layoutX="397.0" layoutY="347.0" mnemonicParsing="false" onAction="#getAppointments" text="Appointments" />
-      <Button layoutX="583.0" layoutY="347.0" mnemonicParsing="false" onAction="#logOut" text="Logout" />
-      <Label layoutX="8.0" layoutY="351.0" text="Customer:" />
+      <Button layoutX="71.0" layoutY="325.0" mnemonicParsing="false" onAction="#createCustomer" prefWidth="70.0" text="Create" />
+      <Label fx:id="Customer_Message" layoutY="365.0" text="Message:" />
+      <Button layoutX="161.0" layoutY="325.0" mnemonicParsing="false" onAction="#updateCustomer" prefWidth="70.0" text="Update" />
+      <Button layoutX="253.0" layoutY="325.0" mnemonicParsing="false" onAction="#deleteCustomer" prefWidth="70.0" text="Delete" />
+      <Button layoutX="394.0" layoutY="325.0" mnemonicParsing="false" onAction="#getAppointments" text="Appointments" />
+      <Button layoutX="583.0" layoutY="325.0" mnemonicParsing="false" onAction="#logOut" text="Logout" />
+      <Label layoutX="11.0" layoutY="329.0" text="Customer:" />
       <ListView fx:id="AlertList" layoutX="423.0" layoutY="393.0" prefHeight="58.0" prefWidth="225.0" />
       <Label layoutY="412.0" text="Appointments Alert:" />
       <Label fx:id="AlertMsg" layoutX="107.0" layoutY="413.0" prefHeight="17.0" prefWidth="316.0" />
-      <Button layoutX="507.0" layoutY="347.0" mnemonicParsing="false" onAction="#getReport" text="Reports" />
+      <Button layoutX="507.0" layoutY="325.0" mnemonicParsing="false" onAction="#getReport" text="Reports" />
+      <Label layoutX="297.0" layoutY="-3.0" prefHeight="25.0" prefWidth="57.0" text="Customers" />
    </children>
 </AnchorPane>
